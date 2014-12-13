@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package utama;
 
 /**
@@ -186,10 +185,10 @@ public class utama extends javax.swing.JFrame {
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
         // TODO add your handling code here:
         /*
-        admin admin1 = new admin();
-        jDesktopPane1.add(admin1);
-        admin1.setVisible(true);
-        */
+         admin admin1 = new admin();
+         jDesktopPane1.add(admin1);
+         admin1.setVisible(true);
+         */
     }//GEN-LAST:event_jMenu9MouseClicked
 
     private void jMenu9MenuKeyPressed(javax.swing.event.MenuKeyEvent evt) {//GEN-FIRST:event_jMenu9MenuKeyPressed
@@ -204,7 +203,7 @@ public class utama extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
