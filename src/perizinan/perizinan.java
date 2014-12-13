@@ -51,6 +51,7 @@ public class perizinan extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setTitle("Form Perizinan");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
