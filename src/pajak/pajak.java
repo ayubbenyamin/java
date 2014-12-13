@@ -64,6 +64,8 @@ public class pajak extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel9.setText("Data User");
 
+        setClosable(true);
+        setMaximizable(true);
         setTitle("Form Pajak");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
