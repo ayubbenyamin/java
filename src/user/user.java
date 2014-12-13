@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package user;
 
 /**
@@ -48,6 +47,8 @@ public class user extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximizable(true);
         setTitle("Form User");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -209,7 +210,6 @@ public class user extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
