@@ -52,7 +52,6 @@ public class pengujian extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
-        setMaximizable(true);
         setTitle("Form Pengujian");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
