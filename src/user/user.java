@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -48,7 +48,6 @@ public class user extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximizable(true);
         setTitle("Form User");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -232,4 +231,5 @@ public class user extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
 }
