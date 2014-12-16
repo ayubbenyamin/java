@@ -5,6 +5,11 @@
  */
 package utama;
 
+import java.awt.Dimension;
+import java.beans.PropertyVetoException;
+import pajak.pajak;
+import user.user;
+
 /**
  *
  * @author Gerardo
@@ -104,11 +109,21 @@ public class utama extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\user.png")); // NOI18N
         jMenu1.setText("User     ");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu1);
 
         jMenu11.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\pajak.png")); // NOI18N
         jMenu11.setText("Pajak     ");
         jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu11MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu11);
 
         jMenu12.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\perizinan.png")); // NOI18N
@@ -195,6 +210,27 @@ public class utama extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jMenu9MenuKeyPressed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        // TODO add your handling code here:
+
+        user user1 = new user();
+        jDesktopPane1.add(user1);
+        user1.show();
+        try {
+            user1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            // Vetoed by internalFrame
+            // ... possibly add some handling for this case
+        }
+    }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
+        // TODO add your handling code here:
+        pajak pajak1 = new pajak();
+        jDesktopPane1.add(pajak1);
+        pajak1.show();
+    }//GEN-LAST:event_jMenu11MouseClicked
 
     /**
      * @param args the command line arguments
