@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pajak;
 
 /**
@@ -65,7 +64,6 @@ public class pajak extends javax.swing.JInternalFrame {
         jLabel9.setText("Data User");
 
         setClosable(true);
-        setMaximizable(true);
         setTitle("Form Pajak");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -256,7 +254,6 @@ public class pajak extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
