@@ -5,8 +5,10 @@
  */
 package utama;
 
+import java.awt.Container;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
 import pajak.pajak;
 import user.user;
 
@@ -217,11 +219,11 @@ public class utama extends javax.swing.JFrame {
         user user1 = new user();
         jDesktopPane1.add(user1);
         user1.show();
+
         try {
             user1.setMaximum(true);
         } catch (PropertyVetoException e) {
-            // Vetoed by internalFrame
-            // ... possibly add some handling for this case
+            //maximize otomatis
         }
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -230,6 +232,11 @@ public class utama extends javax.swing.JFrame {
         pajak pajak1 = new pajak();
         jDesktopPane1.add(pajak1);
         pajak1.show();
+        try {
+            pajak1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
     }//GEN-LAST:event_jMenu11MouseClicked
 
     /**
