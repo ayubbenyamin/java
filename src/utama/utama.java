@@ -113,7 +113,7 @@ public class utama extends javax.swing.JFrame {
         );
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jMenu1.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\user.png")); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         jMenu1.setText("User     ");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
