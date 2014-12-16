@@ -220,6 +220,12 @@ public class utama extends javax.swing.JFrame {
         jDesktopPane1.add(user1);
         user1.show();
 
+        BasicInternalFrameUI x = (BasicInternalFrameUI) user1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
         try {
             user1.setMaximum(true);
         } catch (PropertyVetoException e) {
@@ -232,6 +238,13 @@ public class utama extends javax.swing.JFrame {
         pajak pajak1 = new pajak();
         jDesktopPane1.add(pajak1);
         pajak1.show();
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) pajak1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
         try {
             pajak1.setMaximum(true);
         } catch (PropertyVetoException e) {
