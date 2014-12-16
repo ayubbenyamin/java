@@ -52,7 +52,6 @@ public class admin extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
-        setMaximizable(true);
         setTitle("Form Admin");
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
