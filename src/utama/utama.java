@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import pajak.pajak;
+import pengujian.pengujian;
+import perizinan.perizinan;
 import user.user;
 
 /**
@@ -131,11 +133,21 @@ public class utama extends javax.swing.JFrame {
         jMenu12.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\perizinan.png")); // NOI18N
         jMenu12.setText("Perizinan     ");
         jMenu12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu12MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu12);
 
         jMenu4.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\pengujian.png")); // NOI18N
         jMenu4.setText("Pengujian     ");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu4);
 
         jMenu5.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\sertifikasi16.png")); // NOI18N
@@ -251,6 +263,44 @@ public class utama extends javax.swing.JFrame {
             //maximize otomatis
         }
     }//GEN-LAST:event_jMenu11MouseClicked
+
+    private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
+        // TODO add your handling code here:
+        perizinan perizinan1 = new perizinan();
+        jDesktopPane1.add(perizinan1);
+        perizinan1.show();
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) perizinan1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
+        try {
+            perizinan1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
+    }//GEN-LAST:event_jMenu12MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        // TODO add your handling code here:
+        pengujian pengujian1 = new pengujian();
+        jDesktopPane1.add(pengujian1);
+        pengujian1.show();
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) pengujian1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
+        try {
+            pengujian1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
+    }//GEN-LAST:event_jMenu4MouseClicked
 
     /**
      * @param args the command line arguments
