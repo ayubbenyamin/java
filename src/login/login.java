@@ -176,6 +176,7 @@ public class login extends javax.swing.JFrame {
                 new utama().setVisible(true);
             }
         });
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
