@@ -120,11 +120,11 @@ public class pajak extends javax.swing.JInternalFrame {
         jTextField5.setText("jTextField5 x(40)");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\add.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
         jButton1.setText("Tambah");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\simpan.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/simpan.png"))); // NOI18N
         jButton2.setText("Simpan");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

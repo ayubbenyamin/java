@@ -88,11 +88,11 @@ public class perpanjangan extends javax.swing.JInternalFrame {
         jLabel12.setText("Data Perpanjangan                             ");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\Data\\Ayub\\icons\\icons 16px\\edit.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit.png"))); // NOI18N
         jButton1.setText("Edit    ");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\panjang.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/panjang.png"))); // NOI18N
         jButton2.setText("Perpanjang");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,9 +118,9 @@ public class perpanjangan extends javax.swing.JInternalFrame {
                 .addGap(172, 172, 172)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
+                        .addGap(70, 70, 70)
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addGap(21, 21, 21)
                         .addComponent(jButton2)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
