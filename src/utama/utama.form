@@ -21,7 +21,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu11">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\pajak.png"/>
+              <Image iconType="3" name="/icons/pajak.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pajak     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -35,7 +35,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu12">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\perizinan.png"/>
+              <Image iconType="3" name="/icons/perizinan.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Perizinan     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -49,7 +49,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\pengujian.png"/>
+              <Image iconType="3" name="/icons/pengujian.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pengujian     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -63,7 +63,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\sertifikasi16.png"/>
+              <Image iconType="3" name="/icons/sertifikasi16.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sertifikasi     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -77,7 +77,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\perpanjangan.png"/>
+              <Image iconType="3" name="/icons/perpanjangan.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Perpanjangan     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -91,7 +91,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu7">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\sms.png"/>
+              <Image iconType="3" name="/icons/sms.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SMS Peringatan     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -102,7 +102,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu8">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\laporan.png"/>
+              <Image iconType="3" name="/icons/laporan.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Laporan     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -113,7 +113,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu9">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\admin.png"/>
+              <Image iconType="3" name="/icons/admin.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Admin     "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -127,7 +127,7 @@
         <Menu class="javax.swing.JMenu" name="jMenu10">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="D:\Data\pro\src\icons\logout.png"/>
+              <Image iconType="3" name="/icons/logout.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Logout"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">

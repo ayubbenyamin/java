@@ -123,7 +123,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu1);
 
-        jMenu11.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\pajak.png")); // NOI18N
+        jMenu11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pajak.png"))); // NOI18N
         jMenu11.setText("Pajak     ");
         jMenu11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,7 +133,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu11);
 
-        jMenu12.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\perizinan.png")); // NOI18N
+        jMenu12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/perizinan.png"))); // NOI18N
         jMenu12.setText("Perizinan     ");
         jMenu12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,7 +143,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu12);
 
-        jMenu4.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\pengujian.png")); // NOI18N
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pengujian.png"))); // NOI18N
         jMenu4.setText("Pengujian     ");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -153,7 +153,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu4);
 
-        jMenu5.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\sertifikasi16.png")); // NOI18N
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sertifikasi16.png"))); // NOI18N
         jMenu5.setText("Sertifikasi     ");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -163,7 +163,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\perpanjangan.png")); // NOI18N
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/perpanjangan.png"))); // NOI18N
         jMenu6.setText("Perpanjangan     ");
         jMenu6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,17 +173,17 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\sms.png")); // NOI18N
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sms.png"))); // NOI18N
         jMenu7.setText("SMS Peringatan     ");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuBar1.add(jMenu7);
 
-        jMenu8.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\laporan.png")); // NOI18N
+        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/laporan.png"))); // NOI18N
         jMenu8.setText("Laporan     ");
         jMenu8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuBar1.add(jMenu8);
 
-        jMenu9.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\admin.png")); // NOI18N
+        jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/admin.png"))); // NOI18N
         jMenu9.setText("Admin     ");
         jMenu9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -193,7 +193,7 @@ public class utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu9);
 
-        jMenu10.setIcon(new javax.swing.ImageIcon("D:\\Data\\pro\\src\\icons\\logout.png")); // NOI18N
+        jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logout.png"))); // NOI18N
         jMenu10.setText("Logout");
         jMenu10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jMenuBar1.add(jMenu10);
