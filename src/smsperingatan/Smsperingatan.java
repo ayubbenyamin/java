@@ -9,12 +9,12 @@ package smsperingatan;
  *
  * @author Gerardo
  */
-public class SmsPeringatan extends javax.swing.JInternalFrame {
+public class Smsperingatan extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form perizinan
      */
-    public SmsPeringatan() {
+    public Smsperingatan() {
         initComponents();
     }
 
