@@ -7,14 +7,15 @@ package utama;
 
 import admin.admin;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import laporan.laporan;
 import pajak.pajak;
 import pengujian.pengujian;
 import perizinan.perizinan;
 import perpanjangan.perpanjangan;
 import sertifikasi.sertifikasi;
+import smsperingatan.Smsperingatan;
 import user.user;
 
 /**
@@ -176,11 +177,21 @@ public class utama extends javax.swing.JFrame {
         jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sms.png"))); // NOI18N
         jMenu7.setText("SMS Peringatan     ");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu7);
 
         jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/laporan.png"))); // NOI18N
         jMenu8.setText("Laporan     ");
         jMenu8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu8MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu8);
 
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/admin.png"))); // NOI18N
@@ -348,6 +359,44 @@ public class utama extends javax.swing.JFrame {
             //maximize otomatis
         }
     }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        // TODO add your handling code here:
+        Smsperingatan smsperingatan1 = new Smsperingatan();
+        jDesktopPane1.add(smsperingatan1);
+        smsperingatan1.show();
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
+        try {
+            smsperingatan1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
+    }//GEN-LAST:event_jMenu7MouseClicked
+
+    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+        // TODO add your handling code here:
+        laporan laporan = new laporan();
+        jDesktopPane1.add(laporan);
+        laporan.show();
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) laporan.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
+        try {
+            laporan.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
+    }//GEN-LAST:event_jMenu8MouseClicked
 
     /**
      * @param args the command line arguments
