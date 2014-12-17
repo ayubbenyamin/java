@@ -52,7 +52,7 @@ public class laporan extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setClosable(true);
-        setTitle("Form Perizinan");
+        setTitle("Laporan");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
