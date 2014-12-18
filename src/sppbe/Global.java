@@ -25,6 +25,8 @@ import static sppbe.Config.SYSTEM_EXIT_TITLE;
  */
 public class Global {
 
+    private AksiKeluarSistem aksiListener;
+
     public Global() {
     }
 
@@ -42,10 +44,17 @@ public class Global {
 
         int showOptionDialog = JOptionPane.showOptionDialog(parentComponent, SYSTEM_EXIT_MESSAGE, SYSTEM_EXIT_TITLE, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, iconQuestion, stringArray, stringArray[0]);
 
-        System.out.println((JOptionPane.YES_OPTION == showOptionDialog) + " " + showOptionDialog);
+        if (JOptionPane.CLOSED_OPTION == showOptionDialog) {
+            aksiListener.abaikanKeluar();
+        }
+    }
+
+    public void aksiKeluarSistemListener(AksiKeluarSistem listener) {
+        aksiListener = listener;
     }
 
     void keluarSistem(int status) {
+        aksiListener.keluarSistem(status);
         System.exit(status);
     }
 
@@ -55,7 +64,10 @@ public class Global {
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals(SYSTEM_EXIT_BUTTON_OK)) {
                 keluarSistem(0);
+            } else {
+                aksiListener.batalKeluar();
             }
+
             Window[] windows = Window.getWindows();
             for (Window window : windows) {
                 if (window instanceof JDialog) {
@@ -67,5 +79,14 @@ public class Global {
                 }
             }
         }
+    }
+
+    public static interface AksiKeluarSistem {
+
+        void keluarSistem(int status);
+
+        void batalKeluar();
+
+        void abaikanKeluar();
     }
 }
