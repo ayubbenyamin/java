@@ -18,6 +18,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyVetoException;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -44,6 +46,9 @@ public class Utama extends javax.swing.JFrame {
 
     Global global;
     TrayIcon trayIcon = null;
+    Timer mTimer = null;
+    int interval = (int) (1.5 * 1000); // 1.5 seconds
+    static boolean isON = true;
 
     /**
      * Creates new form utama
@@ -103,6 +108,9 @@ public class Utama extends javax.swing.JFrame {
 
                 @Override
                 public void keluarSistem(int status) {
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                    }
                     if (trayIcon != null) {
                         tray.remove(trayIcon);
                     }
@@ -122,6 +130,9 @@ public class Utama extends javax.swing.JFrame {
                 public void actionPerformed(ActionEvent e) {
                     switch (e.getActionCommand()) {
                         case TRAY_MENU_SHOW:
+                            if (mTimer != null) {
+                                mTimer.cancel();
+                            }
                             tray.remove(trayIcon);
                             setVisible(true);
                             break;
@@ -168,6 +179,12 @@ public class Utama extends javax.swing.JFrame {
             try {
                 tray.add(trayIcon);
                 setVisible(false);
+                if (mTimer != null) {
+                    mTimer.cancel();
+                }
+                mTimer = new Timer();
+                // schedule task
+                mTimer.scheduleAtFixedRate(new ChangeTrayIcon(trayIcon), 0, interval);
             } catch (AWTException ex) {
                 System.err.println(ex);
             }
@@ -611,4 +628,28 @@ public class Utama extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
+
+    private static class ChangeTrayIcon extends TimerTask {
+
+        TrayIcon timerTrayIcon;
+
+        public ChangeTrayIcon(TrayIcon trayIcon) {
+            timerTrayIcon = trayIcon;
+        }
+
+        @Override
+        public void run() {
+            if (timerTrayIcon != null) {
+                Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
+                Image image_blue = (new ImageIcon(getClass().getResource("/icons/message_blue.png"))).getImage();
+                if (isON) {
+                    timerTrayIcon.setImage(image);
+                    isON = false;
+                } else {
+                    timerTrayIcon.setImage(image_blue);
+                    isON = true;
+                }
+            }
+        }
+    }
 }
