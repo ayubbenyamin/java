@@ -6,10 +6,19 @@
 package utama;
 
 import admin.Admin;
+import java.awt.AWTException;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyVetoException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -20,6 +29,10 @@ import perizinan.Perizinan;
 import perpanjangan.Perpanjangan;
 import sertifikasi.Sertifikasi;
 import smsperingatan.Smsperingatan;
+import static sppbe.Config.TRAY_MENU_ABOUT;
+import static sppbe.Config.TRAY_MENU_EXIT;
+import static sppbe.Config.TRAY_MENU_SHOW;
+import static sppbe.Config.TRAY_TOOLTIP;
 import sppbe.Global;
 import user.User;
 
@@ -30,6 +43,7 @@ import user.User;
 public class Utama extends javax.swing.JFrame {
 
     Global global;
+    TrayIcon trayIcon = null;
 
     /**
      * Creates new form utama
@@ -47,12 +61,13 @@ public class Utama extends javax.swing.JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                System.out.println("closing...");
                 // Tutup semua midi form
                 JInternalFrame[] children = jDesktopPane1.getAllFrames();
                 for (JInternalFrame f : children) {
                     f.dispose();
                 }
+
+                systemTrayIcon();
             }
 
             @Override
@@ -75,6 +90,72 @@ public class Utama extends javax.swing.JFrame {
             public void windowDeactivated(WindowEvent e) {
             }
         });
+    }
+
+    private void systemTrayIcon() {
+        if (SystemTray.isSupported()) {
+            // get the SystemTray instance
+            final SystemTray tray = SystemTray.getSystemTray();
+            // load an image
+            Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
+
+            // create a action listener to listen for default action executed on the tray icon
+            ActionListener menuListener = new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    switch (e.getActionCommand()) {
+                        case TRAY_MENU_SHOW:
+                            tray.remove(trayIcon);
+                            setVisible(true);
+                            break;
+                        case TRAY_MENU_ABOUT:
+                            break;
+                        default:
+                            global.konfirmasiKeluar(rootPane);
+                            break;
+                    }
+
+                }
+            };
+
+            ActionListener trayListener = new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    trayIcon.displayMessage("Action Event",
+                            "An Action Event Has Been Peformed!",
+                            TrayIcon.MessageType.INFO);
+                }
+            };
+            // create a popup menu
+            PopupMenu popup = new PopupMenu();
+
+            // create menu item
+            MenuItem utama = new MenuItem(TRAY_MENU_SHOW);
+            MenuItem tentang = new MenuItem(TRAY_MENU_ABOUT);
+            MenuItem tutup = new MenuItem(TRAY_MENU_EXIT);
+
+            utama.addActionListener(menuListener);
+            tutup.addActionListener(menuListener);
+
+            popup.add(utama);
+            popup.addSeparator();
+            popup.add(tentang);
+            popup.add(tutup);
+
+            // construct a TrayIcon
+            trayIcon = new TrayIcon(image, TRAY_TOOLTIP, popup);
+            //adjust to default size as per system recommendation
+            trayIcon.setImageAutoSize(true);
+            // set the TrayIcon properties
+            trayIcon.addActionListener(trayListener);
+
+            try {
+                tray.add(trayIcon);
+                setVisible(false);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            global.konfirmasiKeluar(rootPane);
+        }
     }
 
     private boolean formHasCreated(Object object) {
