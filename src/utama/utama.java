@@ -8,6 +8,7 @@ package utama;
 import admin.admin;
 import java.awt.Container;
 import java.beans.PropertyVetoException;
+import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import laporan.laporan;
 import pajak.pajak;
@@ -33,6 +34,20 @@ public class utama extends javax.swing.JFrame {
     public utama() {
         global = new Global();
         initComponents();
+    }
+
+    private boolean formHasCreated(Object object) {
+        JInternalFrame[] children = jDesktopPane1.getAllFrames();
+        for (JInternalFrame form : children) {
+            if (form.getClass().getCanonicalName().equals(object.getClass().getCanonicalName())) {
+                try {
+                    form.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -243,10 +258,12 @@ public class utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
-        // TODO add your handling code here:
+
         admin admin1 = new admin();
-        jDesktopPane1.add(admin1);
-        admin1.show();
+        if (!formHasCreated(admin1)) {
+            jDesktopPane1.add(admin1);
+            admin1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) admin1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -262,11 +279,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu9MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
 
         user user1 = new user();
-        jDesktopPane1.add(user1);
-        user1.show();
+        if (!formHasCreated(user1)) {
+            jDesktopPane1.add(user1);
+            user1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) user1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -282,10 +300,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
-        // TODO add your handling code here:
+
         pajak pajak1 = new pajak();
-        jDesktopPane1.add(pajak1);
-        pajak1.show();
+        if (!formHasCreated(pajak1)) {
+            jDesktopPane1.add(pajak1);
+            pajak1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) pajak1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -301,10 +321,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu11MouseClicked
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
-        // TODO add your handling code here:
+
         perizinan perizinan1 = new perizinan();
-        jDesktopPane1.add(perizinan1);
-        perizinan1.show();
+        if (!formHasCreated(perizinan1)) {
+            jDesktopPane1.add(perizinan1);
+            perizinan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) perizinan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -320,10 +342,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu12MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        // TODO add your handling code here:
+
         pengujian pengujian1 = new pengujian();
-        jDesktopPane1.add(pengujian1);
-        pengujian1.show();
+        if (!formHasCreated(pengujian1)) {
+            jDesktopPane1.add(pengujian1);
+            pengujian1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) pengujian1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -339,10 +363,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        // TODO add your handling code here:
+
         sertifikasi sertifikasi1 = new sertifikasi();
-        jDesktopPane1.add(sertifikasi1);
-        sertifikasi1.show();
+        if (!formHasCreated(sertifikasi1)) {
+            jDesktopPane1.add(sertifikasi1);
+            sertifikasi1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) sertifikasi1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -358,10 +384,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        // TODO add your handling code here:
+
         perpanjangan perpanjangan1 = new perpanjangan();
-        jDesktopPane1.add(perpanjangan1);
-        perpanjangan1.show();
+        if (!formHasCreated(perpanjangan1)) {
+            jDesktopPane1.add(perpanjangan1);
+            perpanjangan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) perpanjangan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -377,10 +405,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        // TODO add your handling code here:
+
         Smsperingatan smsperingatan1 = new Smsperingatan();
-        jDesktopPane1.add(smsperingatan1);
-        smsperingatan1.show();
+        if (!formHasCreated(smsperingatan1)) {
+            jDesktopPane1.add(smsperingatan1);
+            smsperingatan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -396,10 +426,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7MouseClicked
 
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
-        // TODO add your handling code here:
+
         laporan laporan = new laporan();
-        jDesktopPane1.add(laporan);
-        laporan.show();
+        if (!formHasCreated(laporan)) {
+            jDesktopPane1.add(laporan);
+            laporan.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) laporan.getUI();
         Container north = (Container) x.getNorthPane();
