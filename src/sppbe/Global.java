@@ -44,7 +44,7 @@ public class Global {
 
         int showOptionDialog = JOptionPane.showOptionDialog(parentComponent, SYSTEM_EXIT_MESSAGE, SYSTEM_EXIT_TITLE, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, iconQuestion, stringArray, stringArray[0]);
 
-        if (JOptionPane.CLOSED_OPTION == showOptionDialog) {
+        if (aksiListener != null && JOptionPane.CLOSED_OPTION == showOptionDialog) {
             aksiListener.abaikanKeluar();
         }
     }
@@ -54,7 +54,9 @@ public class Global {
     }
 
     void keluarSistem(int status) {
-        aksiListener.keluarSistem(status);
+        if (aksiListener != null) {
+            aksiListener.keluarSistem(status);
+        }
         System.exit(status);
     }
 
@@ -65,7 +67,9 @@ public class Global {
             if (e.getActionCommand().equals(SYSTEM_EXIT_BUTTON_OK)) {
                 keluarSistem(0);
             } else {
-                aksiListener.batalKeluar();
+                if (aksiListener != null) {
+                    aksiListener.batalKeluar();
+                }
             }
 
             Window[] windows = Window.getWindows();
