@@ -5,18 +5,18 @@
  */
 package login;
 
-import utama.utama;
+import utama.Utama;
 
 /**
  *
  * @author Gerardo
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    public login() {
+    public Login() {
         initComponents();
     }
 
@@ -174,7 +174,7 @@ public class login extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new utama().setVisible(true);
+                new Utama().setVisible(true);
             }
         });
         this.dispose();

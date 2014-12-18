@@ -5,33 +5,33 @@
  */
 package utama;
 
-import admin.admin;
+import admin.Admin;
 import java.awt.Container;
 import java.beans.PropertyVetoException;
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import laporan.laporan;
-import pajak.pajak;
-import pengujian.pengujian;
-import perizinan.perizinan;
-import perpanjangan.perpanjangan;
-import sertifikasi.sertifikasi;
+import laporan.Laporan;
+import pajak.Pajak;
+import pengujian.Pengujian;
+import perizinan.Perizinan;
+import perpanjangan.Perpanjangan;
+import sertifikasi.Sertifikasi;
 import smsperingatan.Smsperingatan;
 import sppbe.Global;
-import user.user;
+import user.User;
 
 /**
  *
  * @author Gerardo
  */
-public class utama extends javax.swing.JFrame {
+public class Utama extends javax.swing.JFrame {
 
     Global global;
 
     /**
      * Creates new form utama
      */
-    public utama() {
+    public Utama() {
         global = new Global();
         initComponents();
     }
@@ -259,7 +259,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
 
-        admin admin1 = new admin();
+        Admin admin1 = new Admin();
         if (!formHasCreated(admin1)) {
             jDesktopPane1.add(admin1);
             admin1.show();
@@ -280,7 +280,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
 
-        user user1 = new user();
+        User user1 = new User();
         if (!formHasCreated(user1)) {
             jDesktopPane1.add(user1);
             user1.show();
@@ -301,7 +301,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
 
-        pajak pajak1 = new pajak();
+        Pajak pajak1 = new Pajak();
         if (!formHasCreated(pajak1)) {
             jDesktopPane1.add(pajak1);
             pajak1.show();
@@ -322,7 +322,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
 
-        perizinan perizinan1 = new perizinan();
+        Perizinan perizinan1 = new Perizinan();
         if (!formHasCreated(perizinan1)) {
             jDesktopPane1.add(perizinan1);
             perizinan1.show();
@@ -343,7 +343,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
 
-        pengujian pengujian1 = new pengujian();
+        Pengujian pengujian1 = new Pengujian();
         if (!formHasCreated(pengujian1)) {
             jDesktopPane1.add(pengujian1);
             pengujian1.show();
@@ -364,7 +364,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
 
-        sertifikasi sertifikasi1 = new sertifikasi();
+        Sertifikasi sertifikasi1 = new Sertifikasi();
         if (!formHasCreated(sertifikasi1)) {
             jDesktopPane1.add(sertifikasi1);
             sertifikasi1.show();
@@ -385,7 +385,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
 
-        perpanjangan perpanjangan1 = new perpanjangan();
+        Perpanjangan perpanjangan1 = new Perpanjangan();
         if (!formHasCreated(perpanjangan1)) {
             jDesktopPane1.add(perpanjangan1);
             perpanjangan1.show();
@@ -427,7 +427,7 @@ public class utama extends javax.swing.JFrame {
 
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
 
-        laporan laporan = new laporan();
+        Laporan laporan = new Laporan();
         if (!formHasCreated(laporan)) {
             jDesktopPane1.add(laporan);
             laporan.show();
