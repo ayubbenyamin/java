@@ -47,6 +47,12 @@ public class Utama extends javax.swing.JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
+                System.out.println("closing...");
+                // Tutup semua midi form
+                JInternalFrame[] children = jDesktopPane1.getAllFrames();
+                for (JInternalFrame f : children) {
+                    f.dispose();
+                }
             }
 
             @Override
