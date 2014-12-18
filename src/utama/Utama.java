@@ -99,6 +99,24 @@ public class Utama extends javax.swing.JFrame {
             // load an image
             Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
 
+            global.aksiKeluarSistemListener(new Global.AksiKeluarSistem() {
+
+                @Override
+                public void keluarSistem(int status) {
+                    if (trayIcon != null) {
+                        tray.remove(trayIcon);
+                    }
+                }
+
+                @Override
+                public void batalKeluar() {
+                }
+
+                @Override
+                public void abaikanKeluar() {
+                }
+            });
+
             // create a action listener to listen for default action executed on the tray icon
             ActionListener menuListener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
