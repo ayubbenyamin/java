@@ -12,7 +12,7 @@ package sppbe;
 public final class Config {
 
     public static final String SYSTEM_EXIT_TITLE = "Keluar Sistem";
-    public static final String SYSTEM_EXIT_MESSAGE = "Apakah Anda yakin ingin keluar dari sistem?\n\nBila Anda keluar dari aplikasi maka SMS peringatan mungkin tidak bisa disampaikan tepat waktu.\n\nKlik Ya untuk melanjutkan.";
+    public static final String SYSTEM_EXIT_MESSAGE = "Apakah Anda yakin ingin keluar dari sistem?\n\nBila Anda keluar dari aplikasi maka SMS peringatan jatuh\ntempo akan sangat mungkin tidak bisa disampaikan tepat waktu.\n\nKlik Ya untuk melanjutkan.";
     public static final String SYSTEM_EXIT_BUTTON_OK = "Ya";
     public static final String SYSTEM_EXIT_BUTTON_NO = "Tidak";
 }
