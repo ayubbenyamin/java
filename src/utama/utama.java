@@ -16,6 +16,7 @@ import perizinan.perizinan;
 import perpanjangan.perpanjangan;
 import sertifikasi.sertifikasi;
 import smsperingatan.Smsperingatan;
+import sppbe.Global;
 import user.user;
 
 /**
@@ -24,10 +25,13 @@ import user.user;
  */
 public class utama extends javax.swing.JFrame {
 
+    Global global;
+
     /**
      * Creates new form utama
      */
     public utama() {
+        global = new Global();
         initComponents();
     }
 
@@ -214,6 +218,11 @@ public class utama extends javax.swing.JFrame {
         jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logout.png"))); // NOI18N
         jMenu10.setText("Logout");
         jMenu10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu10MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
@@ -404,6 +413,10 @@ public class utama extends javax.swing.JFrame {
             //maximize otomatis
         }
     }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        global.konfirmasiKeluar(rootPane);
+    }//GEN-LAST:event_jMenu10MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
