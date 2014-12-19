@@ -232,7 +232,8 @@ public class Utama extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
 
@@ -357,25 +358,31 @@ public class Utama extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu6);
 
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sms.png"))); // NOI18N
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/peringatan.png"))); // NOI18N
         jMenu7.setText("Peringatan     ");
         jMenu7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu7);
 
-        jMenu8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/laporan.png"))); // NOI18N
-        jMenu8.setText("Laporan     ");
-        jMenu8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
+        jMenuItem1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sms.png"))); // NOI18N
+        jMenuItem1.setText("SMS Peringatan");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu8MouseClicked(evt);
+                jMenuItem1MouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu8);
+        jMenu7.add(jMenuItem1);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/laporan.png"))); // NOI18N
+        jMenuItem2.setText("Laporan");
+        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem2MouseClicked(evt);
+            }
+        });
+        jMenu7.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu7);
 
         jMenu9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/admin.png"))); // NOI18N
         jMenu9.setText("Admin     ");
@@ -561,8 +568,12 @@ public class Utama extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu6MouseClicked
 
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        global.konfirmasiKeluar(rootPane);
+    }//GEN-LAST:event_jMenu10MouseClicked
 
+    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
+        // TODO add your handling code here:
         Smsperingatan smsperingatan1 = new Smsperingatan();
         if (!formHasCreated(smsperingatan1)) {
             jDesktopPane1.add(smsperingatan1);
@@ -580,10 +591,11 @@ public class Utama extends javax.swing.JFrame {
         } catch (PropertyVetoException e) {
             //maximize otomatis
         }
-    }//GEN-LAST:event_jMenu7MouseClicked
 
-    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+    }//GEN-LAST:event_jMenuItem1MouseClicked
 
+    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
+        // TODO add your handling code here:
         Laporan laporan = new Laporan();
         if (!formHasCreated(laporan)) {
             jDesktopPane1.add(laporan);
@@ -601,11 +613,7 @@ public class Utama extends javax.swing.JFrame {
         } catch (PropertyVetoException e) {
             //maximize otomatis
         }
-    }//GEN-LAST:event_jMenu8MouseClicked
-
-    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
-        global.konfirmasiKeluar(rootPane);
-    }//GEN-LAST:event_jMenu10MouseClicked
+    }//GEN-LAST:event_jMenuItem2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -621,9 +629,10 @@ public class Utama extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
