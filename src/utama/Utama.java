@@ -5,30 +5,206 @@
  */
 package utama;
 
-import admin.admin;
+import admin.Admin;
+import java.awt.AWTException;
 import java.awt.Container;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyVetoException;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import laporan.laporan;
-import pajak.pajak;
-import pengujian.pengujian;
-import perizinan.perizinan;
-import perpanjangan.perpanjangan;
-import sertifikasi.sertifikasi;
+import laporan.Laporan;
+import pajak.Pajak;
+import pengujian.Pengujian;
+import perizinan.Perizinan;
+import perpanjangan.Perpanjangan;
+import sertifikasi.Sertifikasi;
 import smsperingatan.Smsperingatan;
-import user.user;
+import static sppbe.Config.TRAY_MENU_ABOUT;
+import static sppbe.Config.TRAY_MENU_EXIT;
+import static sppbe.Config.TRAY_MENU_SHOW;
+import static sppbe.Config.TRAY_TOOLTIP;
+import sppbe.Global;
+import user.User;
 
 /**
  *
  * @author Gerardo
  */
-public class utama extends javax.swing.JFrame {
+public class Utama extends javax.swing.JFrame {
+
+    Global global;
+    TrayIcon trayIcon = null;
+    Timer mTimer = null;
+    int interval = (int) (1.5 * 1000); // 1.5 seconds
+    static boolean isON = true;
 
     /**
      * Creates new form utama
      */
-    public utama() {
+    public Utama() {
         initComponents();
+        global = new Global();
+
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowListener() {
+
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                // Tutup semua midi form
+                JInternalFrame[] children = jDesktopPane1.getAllFrames();
+                for (JInternalFrame f : children) {
+                    f.dispose();
+                }
+
+                systemTrayIcon();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+    }
+
+    private void systemTrayIcon() {
+        if (SystemTray.isSupported()) {
+            // get the SystemTray instance
+            final SystemTray tray = SystemTray.getSystemTray();
+            // load an image
+            Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
+
+            global.aksiKeluarSistemListener(new Global.AksiKeluarSistem() {
+
+                @Override
+                public void keluarSistem(int status) {
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                    }
+                    if (trayIcon != null) {
+                        tray.remove(trayIcon);
+                    }
+                }
+
+                @Override
+                public void batalKeluar() {
+                }
+
+                @Override
+                public void abaikanKeluar() {
+                }
+            });
+
+            // create a action listener to listen for default action executed on the tray icon
+            ActionListener menuListener = new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    switch (e.getActionCommand()) {
+                        case TRAY_MENU_SHOW:
+                            if (mTimer != null) {
+                                mTimer.cancel();
+                            }
+                            tray.remove(trayIcon);
+                            setVisible(true);
+                            break;
+                        case TRAY_MENU_ABOUT:
+                            break;
+                        default:
+                            global.konfirmasiKeluar(rootPane);
+                            break;
+                    }
+
+                }
+            };
+
+            ActionListener trayListener = new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    trayIcon.displayMessage("Action Event",
+                            "An Action Event Has Been Peformed!",
+                            TrayIcon.MessageType.INFO);
+                }
+            };
+            // create a popup menu
+            PopupMenu popup = new PopupMenu();
+
+            // create menu item
+            MenuItem utama = new MenuItem(TRAY_MENU_SHOW);
+            MenuItem tentang = new MenuItem(TRAY_MENU_ABOUT);
+            MenuItem tutup = new MenuItem(TRAY_MENU_EXIT);
+
+            utama.addActionListener(menuListener);
+            tutup.addActionListener(menuListener);
+
+            popup.add(utama);
+            popup.addSeparator();
+            popup.add(tentang);
+            popup.add(tutup);
+
+            // construct a TrayIcon
+            trayIcon = new TrayIcon(image, TRAY_TOOLTIP, popup);
+            //adjust to default size as per system recommendation
+            trayIcon.setImageAutoSize(true);
+            // set the TrayIcon properties
+            trayIcon.addActionListener(trayListener);
+
+            try {
+                tray.add(trayIcon);
+                setVisible(false);
+                if (mTimer != null) {
+                    mTimer.cancel();
+                }
+                mTimer = new Timer();
+                // schedule task
+                mTimer.scheduleAtFixedRate(new ChangeTrayIcon(trayIcon), 0, interval);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            global.konfirmasiKeluar(rootPane);
+        }
+    }
+
+    private boolean formHasCreated(Object object) {
+        JInternalFrame[] children = jDesktopPane1.getAllFrames();
+        for (JInternalFrame form : children) {
+            if (form.getClass().getCanonicalName().equals(object.getClass().getCanonicalName())) {
+                try {
+                    form.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -214,6 +390,11 @@ public class utama extends javax.swing.JFrame {
         jMenu10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logout.png"))); // NOI18N
         jMenu10.setText("Logout");
         jMenu10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu10MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
@@ -234,10 +415,12 @@ public class utama extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
-        // TODO add your handling code here:
-        admin admin1 = new admin();
-        jDesktopPane1.add(admin1);
-        admin1.show();
+
+        Admin admin1 = new Admin();
+        if (!formHasCreated(admin1)) {
+            jDesktopPane1.add(admin1);
+            admin1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) admin1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -253,11 +436,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu9MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        // TODO add your handling code here:
 
-        user user1 = new user();
-        jDesktopPane1.add(user1);
-        user1.show();
+        User user1 = new User();
+        if (!formHasCreated(user1)) {
+            jDesktopPane1.add(user1);
+            user1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) user1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -273,10 +457,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
-        // TODO add your handling code here:
-        pajak pajak1 = new pajak();
-        jDesktopPane1.add(pajak1);
-        pajak1.show();
+
+        Pajak pajak1 = new Pajak();
+        if (!formHasCreated(pajak1)) {
+            jDesktopPane1.add(pajak1);
+            pajak1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) pajak1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -292,10 +478,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu11MouseClicked
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
-        // TODO add your handling code here:
-        perizinan perizinan1 = new perizinan();
-        jDesktopPane1.add(perizinan1);
-        perizinan1.show();
+
+        Perizinan perizinan1 = new Perizinan();
+        if (!formHasCreated(perizinan1)) {
+            jDesktopPane1.add(perizinan1);
+            perizinan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) perizinan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -311,10 +499,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu12MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        // TODO add your handling code here:
-        pengujian pengujian1 = new pengujian();
-        jDesktopPane1.add(pengujian1);
-        pengujian1.show();
+
+        Pengujian pengujian1 = new Pengujian();
+        if (!formHasCreated(pengujian1)) {
+            jDesktopPane1.add(pengujian1);
+            pengujian1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) pengujian1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -330,10 +520,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        // TODO add your handling code here:
-        sertifikasi sertifikasi1 = new sertifikasi();
-        jDesktopPane1.add(sertifikasi1);
-        sertifikasi1.show();
+
+        Sertifikasi sertifikasi1 = new Sertifikasi();
+        if (!formHasCreated(sertifikasi1)) {
+            jDesktopPane1.add(sertifikasi1);
+            sertifikasi1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) sertifikasi1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -349,10 +541,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        // TODO add your handling code here:
-        perpanjangan perpanjangan1 = new perpanjangan();
-        jDesktopPane1.add(perpanjangan1);
-        perpanjangan1.show();
+
+        Perpanjangan perpanjangan1 = new Perpanjangan();
+        if (!formHasCreated(perpanjangan1)) {
+            jDesktopPane1.add(perpanjangan1);
+            perpanjangan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) perpanjangan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -368,10 +562,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        // TODO add your handling code here:
+
         Smsperingatan smsperingatan1 = new Smsperingatan();
-        jDesktopPane1.add(smsperingatan1);
-        smsperingatan1.show();
+        if (!formHasCreated(smsperingatan1)) {
+            jDesktopPane1.add(smsperingatan1);
+            smsperingatan1.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
         Container north = (Container) x.getNorthPane();
@@ -387,10 +583,12 @@ public class utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu7MouseClicked
 
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
-        // TODO add your handling code here:
-        laporan laporan = new laporan();
-        jDesktopPane1.add(laporan);
-        laporan.show();
+
+        Laporan laporan = new Laporan();
+        if (!formHasCreated(laporan)) {
+            jDesktopPane1.add(laporan);
+            laporan.show();
+        }
 
         BasicInternalFrameUI x = (BasicInternalFrameUI) laporan.getUI();
         Container north = (Container) x.getNorthPane();
@@ -404,6 +602,10 @@ public class utama extends javax.swing.JFrame {
             //maximize otomatis
         }
     }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
+        global.konfirmasiKeluar(rootPane);
+    }//GEN-LAST:event_jMenu10MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -426,4 +628,28 @@ public class utama extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
+
+    private static class ChangeTrayIcon extends TimerTask {
+
+        TrayIcon timerTrayIcon;
+
+        public ChangeTrayIcon(TrayIcon trayIcon) {
+            timerTrayIcon = trayIcon;
+        }
+
+        @Override
+        public void run() {
+            if (timerTrayIcon != null) {
+                Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
+                Image image_blue = (new ImageIcon(getClass().getResource("/icons/message_blue.png"))).getImage();
+                if (isON) {
+                    timerTrayIcon.setImage(image);
+                    isON = false;
+                } else {
+                    timerTrayIcon.setImage(image_blue);
+                    isON = true;
+                }
+            }
+        }
+    }
 }

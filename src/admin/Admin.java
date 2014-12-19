@@ -9,12 +9,12 @@ package admin;
  *
  * @author Gerardo
  */
-public class admin extends javax.swing.JInternalFrame {
+public class Admin extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form admin
      */
-    public admin() {
+    public Admin() {
         initComponents();
     }
 

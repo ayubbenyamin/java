@@ -9,12 +9,12 @@ package perpanjangan;
  *
  * @author Gerardo
  */
-public class perpanjangan extends javax.swing.JInternalFrame {
+public class Perpanjangan extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form perpanjangan
      */
-    public perpanjangan() {
+    public Perpanjangan() {
         initComponents();
     }
 
@@ -127,7 +127,7 @@ public class perpanjangan extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 126, Short.MAX_VALUE))
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

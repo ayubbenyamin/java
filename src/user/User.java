@@ -9,12 +9,12 @@ package user;
  *
  * @author Gerardo
  */
-public class user extends javax.swing.JInternalFrame {
+public class User extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form user
      */
-    public user() {
+    public User() {
         initComponents();
     }
 

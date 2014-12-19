@@ -5,18 +5,20 @@
  */
 package login;
 
-import utama.utama;
+import com.apple.eawt.Application;
+import javax.swing.ImageIcon;
+import utama.Utama;
 
 /**
  *
  * @author Gerardo
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    public login() {
+    public Login() {
         initComponents();
     }
 
@@ -28,6 +30,11 @@ public class login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
+        //For Microsoft Windows
+        setIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
+        //For Mac OS X
+        Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
 
         jPanel1 = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -174,7 +181,7 @@ public class login extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new utama().setVisible(true);
+                new Utama().setVisible(true);
             }
         });
         this.dispose();

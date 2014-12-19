@@ -9,12 +9,12 @@ package pajak;
  *
  * @author Gerardo
  */
-public class pajak extends javax.swing.JInternalFrame {
+public class Pajak extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form pajak
      */
-    public pajak() {
+    public Pajak() {
         initComponents();
     }
 
