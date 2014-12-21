@@ -5,17 +5,56 @@
  */
 package pengujian;
 
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class Pengujian extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    PengujianJpaController control;
+    model.Pengujian model;
+
     /**
      * Creates new form pengujian
      */
     public Pengujian() {
         initComponents();
+        Object row[] = {"Kode Pengujian", "Nomor Pengujian", "Jenis Pengujian", "Metode Pengujian", "Sumber Pengujian", "Tanggal Jatuh Tempo"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new PengujianJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.Pengujian field : control.findPengujianEntities()) {
+            String[] data = {
+                field.getKodePengujian(),
+                field.getNoPengujian(),
+                field.getJenisPengujian(),
+                field.getMetode(),
+                field.getSumberPengujian(), //field.getTglJatuhTempoPgjn()
+            };
+            tableModel.addRow(data);
+        }
+    }
+
+    private void setModelData() {
+        model = new model.Pengujian();
+        model.setKodePengujian(jTextField1.getText());
+        model.setNoPengujian(jTextField2.getText());
+        model.setJenisPengujian(jTextField3.getText());
+        model.setMetode(jTextField4.getText());
+        model.setSumberPengujian(jTextField5.getText());
+        model.setTglJatuhTempoPgjn(jDateChooser1.getDate());
+    }
+
+    private boolean validateField() {
+        return false;
     }
 
     /**
@@ -253,6 +292,12 @@ public class Pengujian extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        setModelData();
+        try {
+            control.create(model);
+        } catch (Exception ex) {
+            //Logger.getLogger(Pengujian(.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
