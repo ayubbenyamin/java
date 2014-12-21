@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Perizinan.findByTglJatuhTempoPrzn", query = "SELECT p FROM Perizinan p WHERE p.tglJatuhTempoPrzn = :tglJatuhTempoPrzn"),
     @NamedQuery(name = "Perizinan.findByStatusPrzn", query = "SELECT p FROM Perizinan p WHERE p.statusPrzn = :statusPrzn")})
 public class Perizinan implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -179,6 +180,10 @@ public class Perizinan implements Serializable {
     @Override
     public String toString() {
         return "model.Perizinan[ kodePerizinan=" + kodePerizinan + " ]";
+    }
+
+    public String getTglJatuhTempoPgjn() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -5,17 +5,59 @@
  */
 package perizinan;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class Perizinan extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    PerizinanJpaController control;
+    model.Perizinan model;
+
     /**
      * Creates new form perizinan
      */
     public Perizinan() {
         initComponents();
+        Object row[] = {"Kode Perizinan", "Nomor Perizinan", "Jenis Perizinan", "Kegunaan Perizinan", "Sumber Perizinan", "Tanggal Jatuh Tempo"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new PerizinanJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.Perizinan field : control.findPerizinanEntities()) {
+            String[] data = {
+                field.getKodePerizinan(),
+                field.getNoPerizinan(),
+                field.getJenisPerizinan(),
+                field.getKegunaanPerizinan(),
+                field.getSumberPerizinan(),
+                field.getTglJatuhTempoPgjn()
+            };
+            tableModel.addRow(data);
+        }
+    }
+
+    private void setModelData() {
+        model = new model.Perizinan();
+        model.setKodePerizinan(jTextField1.getText());
+        model.setNoPerizinan(jTextField2.getText());
+        model.setJenisPerizinan(jTextField3.getText());
+        model.setKegunaanPerizinan(jTextField4.getText());
+        model.setSumberPerizinan(jTextField5.getText());
+        model.setTglJatuhTempoPrzn(jDateChooser1.getDate());
+    }
+
+    private boolean validateField() {
+        return false;
     }
 
     /**
@@ -60,11 +102,6 @@ public class Perizinan extends javax.swing.JInternalFrame {
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField1.setText("jTextField1 x(6)");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Kegunaan Perizinan  :");
@@ -97,7 +134,7 @@ public class Perizinan extends javax.swing.JInternalFrame {
         jTextField4.setText("jTextField4 x(40)");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Jenis Perizinann         :");
+        jLabel3.setText("Jenis Perizinan          :");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,11 +247,12 @@ public class Perizinan extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,11 +295,13 @@ public class Perizinan extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        setModelData();
+        try {
+            control.create(model);
+        } catch (Exception ex) {
+            Logger.getLogger(Perizinan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
