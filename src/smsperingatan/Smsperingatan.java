@@ -5,17 +5,41 @@
  */
 package smsperingatan;
 
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class Smsperingatan extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    SmsJpaController control;
+    model.Sms model;
+
     /**
-     * Creates new form perizinan
+     * Creates new form Smsperingatan
      */
     public Smsperingatan() {
         initComponents();
+        Object row[] = {"Kode SMS", "Kode Peringatan", "Berita Terkirim", "Tanggal Pengiriman", "Isi SMS", "Nama", "No Hp"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new SmsJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.Sms field : control.findSmsEntities()) {
+            String[] data = {
+                field.getKodeSMS(),
+                field.getBeritaTerkirim(),
+                //field.getTglPengiriman(),
+                field.getNama(), //field.getNoHp()
+            };
+            tableModel.addRow(data);
+        }
     }
 
     /**
