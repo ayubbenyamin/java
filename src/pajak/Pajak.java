@@ -5,17 +5,58 @@
  */
 package pajak;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class Pajak extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    PajakJpaController control;
+    model.Pajak model;
+
     /**
      * Creates new form pajak
      */
     public Pajak() {
         initComponents();
+        Object row[] = {"Kode Pajak", "Nomor NPWP", "Jenis Pajak", "Pokok Pajak", "Sumber Pajak", "Tanggal Jatuh Tempo"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new PajakJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.Pajak field : control.findPajakEntities()) {
+            String[] data = {
+                field.getKodePajak(),
+                field.getNoNpwp(),
+                field.getJenisPajak(),
+                field.getPokokPajak(),
+                field.getSumberPajak(), //field.getTglJatuhTempoPjk()
+            };
+            tableModel.addRow(data);
+        }
+    }
+
+    private void setModelData() {
+        model = new model.Pajak();
+        model.setKodePajak(jTextField1.getText());
+        model.setNoNpwp(jTextField2.getText());
+        model.setJenisPajak(jTextField3.getText());
+        model.setPokokPajak(jTextField4.getText());
+        model.setSumberPajak(jTextField5.getText());
+        model.setTglJatuhTempoPjk(jDateChooser1.getDate());
+    }
+
+    private boolean validateField() {
+        return false;
     }
 
     /**
@@ -271,6 +312,12 @@ public class Pajak extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        setModelData();
+        try {
+            control.create(model);
+        } catch (Exception ex) {
+            Logger.getLogger(Pajak.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
