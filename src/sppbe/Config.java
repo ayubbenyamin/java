@@ -5,6 +5,9 @@
  */
 package sppbe;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author idham
@@ -19,4 +22,5 @@ public final class Config {
     public static final String TRAY_MENU_ABOUT = "Tentang";
     public static final String TRAY_MENU_EXIT = "Keluar Aplikasi";
     public static final String TRAY_TOOLTIP = "Aplikasi SMS Peringatan SPPBE";
+    public static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("SPPBEPU");
 }
