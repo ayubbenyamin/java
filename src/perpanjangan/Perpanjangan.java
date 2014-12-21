@@ -5,17 +5,50 @@
  */
 package perpanjangan;
 
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class Perpanjangan extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    PerpanjangJpaController control;
+    model.Perpanjang model;
+
     /**
      * Creates new form perpanjangan
      */
     public Perpanjangan() {
         initComponents();
+        Object row[] = {"Kode Peringatan", "Jenis Peringatan", "Tanggal Perpanjang"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new PerpanjangJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.Perpanjang field : control.findPerpanjangEntities()) {
+            String[] data = {
+                field.getKodePerpanjang(),
+                field.getStatusPerpanjang(), //field.getTglPerpanjang()
+            };
+            tableModel.addRow(data);
+        }
+    }
+
+    private void setModelData() {
+        model = new model.Perpanjang();
+        //model.setKodePerpanjang(jComboBox1.getSelectedItem());
+        model.setStatusPerpanjang(jTextField1.getText());
+        model.setTglPerpanjang(jDateChooser1.getDate());
+    }
+
+    private boolean validateField() {
+        return false;
     }
 
     /**
