@@ -5,17 +5,55 @@
  */
 package user;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import static sppbe.Config.EMF;
+
 /**
  *
  * @author Gerardo
  */
 public class User extends javax.swing.JInternalFrame {
 
+    DefaultTableModel tableModel;
+    UserJpaController control;
+    model.User model;
+
     /**
      * Creates new form user
      */
     public User() {
         initComponents();
+        Object row[] = {"Id User", "Nama User", "No Handphone", "Alamat User"};
+        tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+        control = new UserJpaController(EMF);
+        loadData();
+    }
+
+    private void loadData() {
+        for (model.User field : control.findUserEntities()) {
+            String[] data = {
+                field.getIdUser(),
+                field.getNamaUser(),
+                field.getNoHpUser(),
+                field.getAlamatUser()
+            };
+            tableModel.addRow(data);
+        }
+    }
+
+    private void setModelData() {
+        model = new model.User();
+        model.setIdUser(jTextField1.getText());
+        model.setNamaUser(jTextField2.getText());
+        model.setNoHpUser(jTextField3.getText());
+        model.setAlamatUser(jTextArea1.getText());
+    }
+
+    private boolean validateField() {
+        return false;
     }
 
     /**
@@ -76,6 +114,11 @@ public class User extends javax.swing.JInternalFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/simpan.png"))); // NOI18N
         jButton2.setText("Simpan");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextField1.setText("jTextField1 x(6)");
@@ -222,6 +265,16 @@ public class User extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        setModelData();
+        try {
+            control.create(model);
+        } catch (Exception ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
