@@ -6,12 +6,11 @@
 package views;
 
 import controllers.AdminJpaController;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static sppbe.Config.EMF;
+import sppbe.Global;
 
 /**
  *
@@ -46,31 +45,9 @@ public class Admin extends javax.swing.JInternalFrame {
         model = new model.Admin();
         model.setIdAdmin(jTextField1.getText());
         model.setNamaAdmin(jTextField2.getText());
-        model.setPassword(doHasing(jTextField3.getText()));
+        model.setPassword(Global.doHasing(jTextField3.getText()));
         model.setAlamatAdmin(jTextArea1.getText());
         model.setNoHpAdmin(jTextField5.getText());
-    }
-
-    private String doHasing(final String passwordToHash) {
-        String generatedPassword = null;
-        try {
-            // Create MessageDigest instance for MD5
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            //Add password bytes to digest
-            md.update(passwordToHash.getBytes());
-            //Get the hash's bytes
-            byte[] bytes = md.digest();
-            //This bytes[] has bytes in decimal format;
-            //Convert it to hexadecimal format
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            //Get complete hashed password in hex format
-            generatedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-        }
-        return generatedPassword;
     }
 
     private boolean validateField() {
