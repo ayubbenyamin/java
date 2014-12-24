@@ -117,4 +117,8 @@ public class Global {
         }
         return generatedPassword;
     }
+
+    public static void showProgress() {
+        // TODO show progress dialog here
+    }
 }
