@@ -5,9 +5,7 @@
  */
 package views;
 
-import com.apple.eawt.Application;
 import javax.swing.ImageIcon;
-import views.Utama;
 
 /**
  *
@@ -31,10 +29,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        //For Microsoft Windows
         setIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
-        //For Mac OS X
-        Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
 
         jPanel1 = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();

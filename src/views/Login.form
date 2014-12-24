@@ -42,7 +42,7 @@
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="//For Microsoft Windows&#xa;        setIconImage(new ImageIcon(getClass().getResource(&quot;/icons/ikon_aplikasi.png&quot;)).getImage());&#xa;        //For Mac OS X&#xa;        Application.getApplication().setDockIconImage(new ImageIcon(getClass().getResource(&quot;/icons/ikon_aplikasi.png&quot;)).getImage());&#xa;        "/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="setIconImage(new ImageIcon(getClass().getResource(&quot;/icons/ikon_aplikasi.png&quot;)).getImage());&#xa;        &#xa;        "/>
         <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Login_jPanel1"/>
       </AuxValues>
 
