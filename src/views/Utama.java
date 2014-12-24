@@ -22,7 +22,9 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import sppbe.AksiKeluarSistem;
 import static sppbe.Config.TRAY_MENU_ABOUT;
 import static sppbe.Config.TRAY_MENU_EXIT;
 import static sppbe.Config.TRAY_MENU_SHOW;
@@ -35,7 +37,6 @@ import sppbe.Global;
  */
 public class Utama extends javax.swing.JFrame {
 
-    Global global;
     TrayIcon trayIcon = null;
     Timer mTimer = null;
     int interval = (int) (1.5 * 1000); // 1.5 seconds
@@ -46,7 +47,6 @@ public class Utama extends javax.swing.JFrame {
      */
     public Utama() {
         initComponents();
-        global = new Global();
 
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowListener() {
@@ -95,27 +95,6 @@ public class Utama extends javax.swing.JFrame {
             // load an image
             Image image = (new ImageIcon(getClass().getResource("/icons/message.png"))).getImage();
 
-            global.aksiKeluarSistemListener(new Global.AksiKeluarSistem() {
-
-                @Override
-                public void keluarSistem(int status) {
-                    if (mTimer != null) {
-                        mTimer.cancel();
-                    }
-                    if (trayIcon != null) {
-                        tray.remove(trayIcon);
-                    }
-                }
-
-                @Override
-                public void batalKeluar() {
-                }
-
-                @Override
-                public void abaikanKeluar() {
-                }
-            });
-
             // create a action listener to listen for default action executed on the tray icon
             ActionListener menuListener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -130,7 +109,20 @@ public class Utama extends javax.swing.JFrame {
                         case TRAY_MENU_ABOUT:
                             break;
                         default:
-                            global.konfirmasiKeluar(rootPane);
+                            Global.konfirmasiKeluar(rootPane, new AksiKeluarSistem() {
+
+                                @Override
+                                public void run(int status) {
+                                    if (status == JOptionPane.OK_OPTION) {
+                                        if (mTimer != null) {
+                                            mTimer.cancel();
+                                        }
+                                        if (trayIcon != null) {
+                                            tray.remove(trayIcon);
+                                        }
+                                    }
+                                }
+                            });
                             break;
                     }
 
@@ -180,7 +172,7 @@ public class Utama extends javax.swing.JFrame {
                 System.err.println(ex);
             }
         } else {
-            global.konfirmasiKeluar(rootPane);
+            Global.konfirmasiKeluar(rootPane);
         }
     }
 
@@ -560,7 +552,7 @@ public class Utama extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu6MouseClicked
 
     private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
-        global.konfirmasiKeluar(rootPane);
+        Global.konfirmasiKeluar(rootPane);
     }//GEN-LAST:event_jMenu10MouseClicked
 
     private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
