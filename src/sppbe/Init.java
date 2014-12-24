@@ -5,7 +5,7 @@
  */
 package sppbe;
 
-import login.Login;
+import views.Login;
 
 /**
  *

@@ -42,9 +42,9 @@ public class User implements Serializable {
     private String noHpUser;
     @Column(name = "Alamat_User")
     private String alamatUser;
-    @JoinColumn(name = "Kode_SMS", referencedColumnName = "Kode_SMS")
+    @JoinColumn(name = "Kode_SMS_Peringatan", referencedColumnName = "Kode_SMS_Peringatan")
     @ManyToOne
-    private Sms kodeSMS;
+    private SMSPeringatan kodeSMSPeringatan;
 
     public User() {
     }
@@ -85,12 +85,12 @@ public class User implements Serializable {
         this.alamatUser = alamatUser;
     }
 
-    public Sms getKodeSMS() {
-        return kodeSMS;
+    public SMSPeringatan getKodeSMSPeringatan() {
+        return kodeSMSPeringatan;
     }
 
-    public void setKodeSMS(Sms kodeSMS) {
-        this.kodeSMS = kodeSMS;
+    public void setKodeSMSPeringatan(SMSPeringatan kodeSMSPeringatan) {
+        this.kodeSMSPeringatan = kodeSMSPeringatan;
     }
 
     @Override

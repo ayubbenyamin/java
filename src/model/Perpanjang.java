@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,29 +33,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Perpanjang.findAll", query = "SELECT p FROM Perpanjang p"),
     @NamedQuery(name = "Perpanjang.findByKodePerpanjang", query = "SELECT p FROM Perpanjang p WHERE p.kodePerpanjang = :kodePerpanjang"),
-    @NamedQuery(name = "Perpanjang.findByTglJatuhTempoPrpg", query = "SELECT p FROM Perpanjang p WHERE p.tglJatuhTempoPrpg = :tglJatuhTempoPrpg"),
-    @NamedQuery(name = "Perpanjang.findByTglPerpanjang", query = "SELECT p FROM Perpanjang p WHERE p.tglPerpanjang = :tglPerpanjang"),
-    @NamedQuery(name = "Perpanjang.findByStatusPerpanjang", query = "SELECT p FROM Perpanjang p WHERE p.statusPerpanjang = :statusPerpanjang")})
+    @NamedQuery(name = "Perpanjang.findByJenisPeringatan", query = "SELECT p FROM Perpanjang p WHERE p.jenisPeringatan = :jenisPeringatan"),
+    @NamedQuery(name = "Perpanjang.findByTglJatuhTempo", query = "SELECT p FROM Perpanjang p WHERE p.tglJatuhTempo = :tglJatuhTempo"),
+    @NamedQuery(name = "Perpanjang.findByTglPerpanjang", query = "SELECT p FROM Perpanjang p WHERE p.tglPerpanjang = :tglPerpanjang")})
 public class Perpanjang implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Kode_Perpanjang")
     private String kodePerpanjang;
-    @Column(name = "Tgl_Jatuh_Tempo_Prpg")
+    @Column(name = "Jenis_Peringatan")
+    private String jenisPeringatan;
+    @Column(name = "Tgl_Jatuh_Tempo")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date tglJatuhTempoPrpg;
+    private Date tglJatuhTempo;
     @Column(name = "Tgl_Perpanjang")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglPerpanjang;
-    @Column(name = "Status_Perpanjang")
-    private String statusPerpanjang;
+    @OneToMany(mappedBy = "kodePerpanjang")
+    private Collection<Laporan> laporanCollection;
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne
     private Admin idAdmin;
-    @JoinColumn(name = "Kode_Peringatan", referencedColumnName = "Kode_Peringatan")
+    @JoinColumn(name = "Kode_Pajak", referencedColumnName = "Kode_Pajak")
     @ManyToOne
-    private Peringatan kodePeringatan;
+    private Pajak kodePajak;
+    @JoinColumn(name = "Kode_Pengujian", referencedColumnName = "Kode_Pengujian")
+    @ManyToOne
+    private Pengujian kodePengujian;
+    @JoinColumn(name = "Kode_Perizinan", referencedColumnName = "Kode_Perizinan")
+    @ManyToOne
+    private Perizinan kodePerizinan;
+    @JoinColumn(name = "Kode_Sertifikasi", referencedColumnName = "Kode_Sertifikasi")
+    @ManyToOne
+    private Sertifikasi kodeSertifikasi;
+    @OneToMany(mappedBy = "kodePerpanjang")
+    private Collection<SMSPeringatan> sMSPeringatanCollection;
 
     public Perpanjang() {
     }
@@ -69,12 +85,20 @@ public class Perpanjang implements Serializable {
         this.kodePerpanjang = kodePerpanjang;
     }
 
-    public Date getTglJatuhTempoPrpg() {
-        return tglJatuhTempoPrpg;
+    public String getJenisPeringatan() {
+        return jenisPeringatan;
     }
 
-    public void setTglJatuhTempoPrpg(Date tglJatuhTempoPrpg) {
-        this.tglJatuhTempoPrpg = tglJatuhTempoPrpg;
+    public void setJenisPeringatan(String jenisPeringatan) {
+        this.jenisPeringatan = jenisPeringatan;
+    }
+
+    public Date getTglJatuhTempo() {
+        return tglJatuhTempo;
+    }
+
+    public void setTglJatuhTempo(Date tglJatuhTempo) {
+        this.tglJatuhTempo = tglJatuhTempo;
     }
 
     public Date getTglPerpanjang() {
@@ -85,12 +109,13 @@ public class Perpanjang implements Serializable {
         this.tglPerpanjang = tglPerpanjang;
     }
 
-    public String getStatusPerpanjang() {
-        return statusPerpanjang;
+    @XmlTransient
+    public Collection<Laporan> getLaporanCollection() {
+        return laporanCollection;
     }
 
-    public void setStatusPerpanjang(String statusPerpanjang) {
-        this.statusPerpanjang = statusPerpanjang;
+    public void setLaporanCollection(Collection<Laporan> laporanCollection) {
+        this.laporanCollection = laporanCollection;
     }
 
     public Admin getIdAdmin() {
@@ -101,12 +126,45 @@ public class Perpanjang implements Serializable {
         this.idAdmin = idAdmin;
     }
 
-    public Peringatan getKodePeringatan() {
-        return kodePeringatan;
+    public Pajak getKodePajak() {
+        return kodePajak;
     }
 
-    public void setKodePeringatan(Peringatan kodePeringatan) {
-        this.kodePeringatan = kodePeringatan;
+    public void setKodePajak(Pajak kodePajak) {
+        this.kodePajak = kodePajak;
+    }
+
+    public Pengujian getKodePengujian() {
+        return kodePengujian;
+    }
+
+    public void setKodePengujian(Pengujian kodePengujian) {
+        this.kodePengujian = kodePengujian;
+    }
+
+    public Perizinan getKodePerizinan() {
+        return kodePerizinan;
+    }
+
+    public void setKodePerizinan(Perizinan kodePerizinan) {
+        this.kodePerizinan = kodePerizinan;
+    }
+
+    public Sertifikasi getKodeSertifikasi() {
+        return kodeSertifikasi;
+    }
+
+    public void setKodeSertifikasi(Sertifikasi kodeSertifikasi) {
+        this.kodeSertifikasi = kodeSertifikasi;
+    }
+
+    @XmlTransient
+    public Collection<SMSPeringatan> getSMSPeringatanCollection() {
+        return sMSPeringatanCollection;
+    }
+
+    public void setSMSPeringatanCollection(Collection<SMSPeringatan> sMSPeringatanCollection) {
+        this.sMSPeringatanCollection = sMSPeringatanCollection;
     }
 
     @Override

@@ -10,6 +10,8 @@
         <class>model.Pengujian</class>
         <class>model.Perpanjang</class>
         <class>model.Peringatan</class>
+        <class>model.SMSPeringatan</class>
+        <class>model.Laporan</class>
         <class>model.Admin</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sppbe?zeroDateTimeBehavior=convertToNull"/>

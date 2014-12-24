@@ -36,9 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Sertifikasi.findByNoSertifikasi", query = "SELECT s FROM Sertifikasi s WHERE s.noSertifikasi = :noSertifikasi"),
     @NamedQuery(name = "Sertifikasi.findByJenisSertifikasi", query = "SELECT s FROM Sertifikasi s WHERE s.jenisSertifikasi = :jenisSertifikasi"),
     @NamedQuery(name = "Sertifikasi.findBySumberSertifikasi", query = "SELECT s FROM Sertifikasi s WHERE s.sumberSertifikasi = :sumberSertifikasi"),
-    @NamedQuery(name = "Sertifikasi.findByTglKetetapanSrks", query = "SELECT s FROM Sertifikasi s WHERE s.tglKetetapanSrks = :tglKetetapanSrks"),
-    @NamedQuery(name = "Sertifikasi.findByTglJatuhTempoSrks", query = "SELECT s FROM Sertifikasi s WHERE s.tglJatuhTempoSrks = :tglJatuhTempoSrks"),
-    @NamedQuery(name = "Sertifikasi.findByStatusSrks", query = "SELECT s FROM Sertifikasi s WHERE s.statusSrks = :statusSrks")})
+    @NamedQuery(name = "Sertifikasi.findByTglJatuhTempoSrks", query = "SELECT s FROM Sertifikasi s WHERE s.tglJatuhTempoSrks = :tglJatuhTempoSrks")})
 public class Sertifikasi implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,19 +49,14 @@ public class Sertifikasi implements Serializable {
     private String jenisSertifikasi;
     @Column(name = "Sumber_Sertifikasi")
     private String sumberSertifikasi;
-    @Column(name = "Tgl_Ketetapan_Srks")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date tglKetetapanSrks;
     @Column(name = "Tgl_Jatuh_Tempo_Srks")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglJatuhTempoSrks;
-    @Column(name = "Status_Srks")
-    private String statusSrks;
-    @OneToMany(mappedBy = "kodeSertifikasi")
-    private Collection<Peringatan> peringatanCollection;
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne(optional = false)
     private Admin idAdmin;
+    @OneToMany(mappedBy = "kodeSertifikasi")
+    private Collection<Perpanjang> perpanjangCollection;
 
     public Sertifikasi() {
     }
@@ -104,14 +97,6 @@ public class Sertifikasi implements Serializable {
         this.sumberSertifikasi = sumberSertifikasi;
     }
 
-    public Date getTglKetetapanSrks() {
-        return tglKetetapanSrks;
-    }
-
-    public void setTglKetetapanSrks(Date tglKetetapanSrks) {
-        this.tglKetetapanSrks = tglKetetapanSrks;
-    }
-
     public Date getTglJatuhTempoSrks() {
         return tglJatuhTempoSrks;
     }
@@ -120,29 +105,21 @@ public class Sertifikasi implements Serializable {
         this.tglJatuhTempoSrks = tglJatuhTempoSrks;
     }
 
-    public String getStatusSrks() {
-        return statusSrks;
-    }
-
-    public void setStatusSrks(String statusSrks) {
-        this.statusSrks = statusSrks;
-    }
-
-    @XmlTransient
-    public Collection<Peringatan> getPeringatanCollection() {
-        return peringatanCollection;
-    }
-
-    public void setPeringatanCollection(Collection<Peringatan> peringatanCollection) {
-        this.peringatanCollection = peringatanCollection;
-    }
-
     public Admin getIdAdmin() {
         return idAdmin;
     }
 
     public void setIdAdmin(Admin idAdmin) {
         this.idAdmin = idAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Perpanjang> getPerpanjangCollection() {
+        return perpanjangCollection;
+    }
+
+    public void setPerpanjangCollection(Collection<Perpanjang> perpanjangCollection) {
+        this.perpanjangCollection = perpanjangCollection;
     }
 
     @Override

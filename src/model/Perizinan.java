@@ -37,11 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Perizinan.findByJenisPerizinan", query = "SELECT p FROM Perizinan p WHERE p.jenisPerizinan = :jenisPerizinan"),
     @NamedQuery(name = "Perizinan.findByKegunaanPerizinan", query = "SELECT p FROM Perizinan p WHERE p.kegunaanPerizinan = :kegunaanPerizinan"),
     @NamedQuery(name = "Perizinan.findBySumberPerizinan", query = "SELECT p FROM Perizinan p WHERE p.sumberPerizinan = :sumberPerizinan"),
-    @NamedQuery(name = "Perizinan.findByTglKetetapanPrzn", query = "SELECT p FROM Perizinan p WHERE p.tglKetetapanPrzn = :tglKetetapanPrzn"),
-    @NamedQuery(name = "Perizinan.findByTglJatuhTempoPrzn", query = "SELECT p FROM Perizinan p WHERE p.tglJatuhTempoPrzn = :tglJatuhTempoPrzn"),
-    @NamedQuery(name = "Perizinan.findByStatusPrzn", query = "SELECT p FROM Perizinan p WHERE p.statusPrzn = :statusPrzn")})
+    @NamedQuery(name = "Perizinan.findByTglJatuhTempoPrzn", query = "SELECT p FROM Perizinan p WHERE p.tglJatuhTempoPrzn = :tglJatuhTempoPrzn")})
 public class Perizinan implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,19 +52,14 @@ public class Perizinan implements Serializable {
     private String kegunaanPerizinan;
     @Column(name = "Sumber_Perizinan")
     private String sumberPerizinan;
-    @Column(name = "Tgl_Ketetapan_Przn")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date tglKetetapanPrzn;
     @Column(name = "Tgl_Jatuh_Tempo_Przn")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglJatuhTempoPrzn;
-    @Column(name = "Status_Przn")
-    private String statusPrzn;
-    @OneToMany(mappedBy = "kodePerizinan")
-    private Collection<Peringatan> peringatanCollection;
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne(optional = false)
     private Admin idAdmin;
+    @OneToMany(mappedBy = "kodePerizinan")
+    private Collection<Perpanjang> perpanjangCollection;
 
     public Perizinan() {
     }
@@ -116,14 +108,6 @@ public class Perizinan implements Serializable {
         this.sumberPerizinan = sumberPerizinan;
     }
 
-    public Date getTglKetetapanPrzn() {
-        return tglKetetapanPrzn;
-    }
-
-    public void setTglKetetapanPrzn(Date tglKetetapanPrzn) {
-        this.tglKetetapanPrzn = tglKetetapanPrzn;
-    }
-
     public Date getTglJatuhTempoPrzn() {
         return tglJatuhTempoPrzn;
     }
@@ -132,29 +116,21 @@ public class Perizinan implements Serializable {
         this.tglJatuhTempoPrzn = tglJatuhTempoPrzn;
     }
 
-    public String getStatusPrzn() {
-        return statusPrzn;
-    }
-
-    public void setStatusPrzn(String statusPrzn) {
-        this.statusPrzn = statusPrzn;
-    }
-
-    @XmlTransient
-    public Collection<Peringatan> getPeringatanCollection() {
-        return peringatanCollection;
-    }
-
-    public void setPeringatanCollection(Collection<Peringatan> peringatanCollection) {
-        this.peringatanCollection = peringatanCollection;
-    }
-
     public Admin getIdAdmin() {
         return idAdmin;
     }
 
     public void setIdAdmin(Admin idAdmin) {
         this.idAdmin = idAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Perpanjang> getPerpanjangCollection() {
+        return perpanjangCollection;
+    }
+
+    public void setPerpanjangCollection(Collection<Perpanjang> perpanjangCollection) {
+        this.perpanjangCollection = perpanjangCollection;
     }
 
     @Override
@@ -180,10 +156,6 @@ public class Perizinan implements Serializable {
     @Override
     public String toString() {
         return "model.Perizinan[ kodePerizinan=" + kodePerizinan + " ]";
-    }
-
-    public String getTglJatuhTempoPgjn() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

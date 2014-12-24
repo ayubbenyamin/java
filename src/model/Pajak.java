@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,9 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pajak.findByJenisPajak", query = "SELECT p FROM Pajak p WHERE p.jenisPajak = :jenisPajak"),
     @NamedQuery(name = "Pajak.findBySumberPajak", query = "SELECT p FROM Pajak p WHERE p.sumberPajak = :sumberPajak"),
     @NamedQuery(name = "Pajak.findByPokokPajak", query = "SELECT p FROM Pajak p WHERE p.pokokPajak = :pokokPajak"),
-    @NamedQuery(name = "Pajak.findByTglKetetapanPjk", query = "SELECT p FROM Pajak p WHERE p.tglKetetapanPjk = :tglKetetapanPjk"),
-    @NamedQuery(name = "Pajak.findByTglJatuhTempoPjk", query = "SELECT p FROM Pajak p WHERE p.tglJatuhTempoPjk = :tglJatuhTempoPjk"),
-    @NamedQuery(name = "Pajak.findByStatusPjk", query = "SELECT p FROM Pajak p WHERE p.statusPjk = :statusPjk")})
+    @NamedQuery(name = "Pajak.findByTglJatuhTempoPjk", query = "SELECT p FROM Pajak p WHERE p.tglJatuhTempoPjk = :tglJatuhTempoPjk")})
 public class Pajak implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,19 +52,14 @@ public class Pajak implements Serializable {
     private String sumberPajak;
     @Column(name = "Pokok_Pajak")
     private String pokokPajak;
-    @Column(name = "Tgl_Ketetapan_Pjk")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date tglKetetapanPjk;
     @Column(name = "Tgl_Jatuh_Tempo_Pjk")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglJatuhTempoPjk;
-    @Column(name = "Status_Pjk")
-    private String statusPjk;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kodePajak")
-    private Collection<Peringatan> peringatanCollection;
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne(optional = false)
     private Admin idAdmin;
+    @OneToMany(mappedBy = "kodePajak")
+    private Collection<Perpanjang> perpanjangCollection;
 
     public Pajak() {
     }
@@ -116,14 +108,6 @@ public class Pajak implements Serializable {
         this.pokokPajak = pokokPajak;
     }
 
-    public Date getTglKetetapanPjk() {
-        return tglKetetapanPjk;
-    }
-
-    public void setTglKetetapanPjk(Date tglKetetapanPjk) {
-        this.tglKetetapanPjk = tglKetetapanPjk;
-    }
-
     public Date getTglJatuhTempoPjk() {
         return tglJatuhTempoPjk;
     }
@@ -132,29 +116,21 @@ public class Pajak implements Serializable {
         this.tglJatuhTempoPjk = tglJatuhTempoPjk;
     }
 
-    public String getStatusPjk() {
-        return statusPjk;
-    }
-
-    public void setStatusPjk(String statusPjk) {
-        this.statusPjk = statusPjk;
-    }
-
-    @XmlTransient
-    public Collection<Peringatan> getPeringatanCollection() {
-        return peringatanCollection;
-    }
-
-    public void setPeringatanCollection(Collection<Peringatan> peringatanCollection) {
-        this.peringatanCollection = peringatanCollection;
-    }
-
     public Admin getIdAdmin() {
         return idAdmin;
     }
 
     public void setIdAdmin(Admin idAdmin) {
         this.idAdmin = idAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Perpanjang> getPerpanjangCollection() {
+        return perpanjangCollection;
+    }
+
+    public void setPerpanjangCollection(Collection<Perpanjang> perpanjangCollection) {
+        this.perpanjangCollection = perpanjangCollection;
     }
 
     @Override
