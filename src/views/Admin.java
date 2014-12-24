@@ -35,8 +35,8 @@ public class Admin extends javax.swing.JInternalFrame {
     }
 
     private void loadData() {
-        for (model.Admin adminField : control.findAdminEntities()) {
-            String[] data = {adminField.getIdAdmin(), adminField.getNamaAdmin(), adminField.getAlamatAdmin(), adminField.getNoHpAdmin().toString()};
+        for (model.Admin field : control.findAdminEntities()) {
+            String[] data = {field.getIdAdmin(), field.getNamaAdmin(), field.getAlamatAdmin(), field.getNoHpAdmin().toString()};
             tableModel.addRow(data);
         }
     }
