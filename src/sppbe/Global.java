@@ -5,6 +5,7 @@
  */
 package sppbe;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.awt.Window;
 import java.security.MessageDigest;
@@ -42,7 +43,7 @@ public class Global {
     public static void setEnabledTextField(JPanel jPanel, boolean b) {
         Component[] component = jPanel.getComponents();
         for (Component com : component) {
-            if (com instanceof JTextField) {
+            if (com instanceof JTextField || com instanceof JDateChooser) {
                 com.setEnabled(b);
             }
             if (com instanceof JScrollPane) {
@@ -61,6 +62,9 @@ public class Global {
         for (Component com : component) {
             if (com instanceof JTextField || com instanceof JTextArea) {
                 ((JTextComponent) com).setText("");
+            }
+            if (com instanceof JDateChooser) {
+                ((JDateChooser) com).setDate(null);
             }
             if (com instanceof JScrollPane) {
                 Component[] component2 = ((JScrollPane) com).getViewport().getComponents();
