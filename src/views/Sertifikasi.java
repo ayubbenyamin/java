@@ -6,10 +6,15 @@
 package views;
 
 import controllers.SertifikasiJpaController;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sppbe.AksiHapus;
 import static sppbe.Config.EMF;
+import sppbe.Global;
 
 /**
  *
@@ -17,7 +22,6 @@ import static sppbe.Config.EMF;
  */
 public class Sertifikasi extends javax.swing.JInternalFrame {
 
-    DefaultTableModel tableModel;
     SertifikasiJpaController control;
     model.Sertifikasi model;
 
@@ -26,20 +30,32 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
      */
     public Sertifikasi() {
         initComponents();
-        Object row[] = {"Kode Sertifikasi", "Nomor Sertifikasi", "Jenis Sertifikasi", "Sumber Sertifikasi", "Tanggal Jatuh Tempo"};
-        tableModel = new DefaultTableModel(null, row);
-        jTable1.setModel(tableModel);
         control = new SertifikasiJpaController(EMF);
         loadData();
+        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void loadData() {
+        Object row[] = {"Kode Sertifikasi", "Nomor Sertifikasi", "Jenis Sertifikasi", "Sumber Sertifikasi", "Tanggal Jatuh Tempo"};
+        DefaultTableModel tableModel = new DefaultTableModel(null, row) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        jTable1.setModel(tableModel);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
         for (model.Sertifikasi field : control.findSertifikasiEntities()) {
             String[] data = {
                 field.getKodeSertifikasi(),
                 field.getNoSertifikasi(),
                 field.getJenisSertifikasi(),
-                field.getSumberSertifikasi(), //field.getTglJatuhTempoSrks()
+                field.getSumberSertifikasi(),
+                sdf.format(field.getTglJatuhTempoSrks())
             };
             tableModel.addRow(data);
         }
@@ -52,6 +68,7 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         model.setJenisSertifikasi(jTextField3.getText());
         model.setSumberSertifikasi(jTextField4.getText());
         model.setTglJatuhTempoSrks(jDateChooser1.getDate());
+        model.setIdAdmin(Global.getModelAdmin());
     }
 
     private boolean validateField() {
@@ -96,7 +113,6 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setText("jTextField1 x(6)");
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/simpan.png"))); // NOI18N
@@ -111,18 +127,11 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         jLabel6.setText("Tanggal Jatuh Tempo :");
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.setText("jTextField2 x(30)");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Kode Sertifikasi      :");
 
         jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField4.setText("jTextField4 x(40)");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("PT. PUTRA SINDO");
@@ -141,10 +150,14 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField3.setText("1234567890 x(30)");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Nomor Sertifikasi  :");
@@ -158,18 +171,35 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/add.png"))); // NOI18N
         jButton1.setText("Tambah");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Data Sertifikasi");
 
+        jDateChooser1.setDateFormatString("dd-MM-yyyy");
+
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/hapus.png"))); // NOI18N
         jButton3.setText("Hapus");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/edit.png"))); // NOI18N
         jButton4.setText("Edit");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,10 +219,10 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                     .addComponent(jTextField3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(238, 238, 238)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -283,18 +313,73 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        Global.showProgress();
         setModelData();
         try {
             control.create(model);
+            loadData();
+            Global.setClearTextField(jPanel1);
         } catch (Exception ex) {
-            Logger.getLogger(Sertifikasi.class.getName()).log(Level.SEVERE, null, ex);
+            if (control.findSertifikasi(model.getKodeSertifikasi()) != null) {
+                JOptionPane.showMessageDialog(rootPane, "Kode Sertifikasi " + model.getKodeSertifikasi() + " sudah ada di database.");
+            }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Global.setEnabledTextField(jPanel1);
+        Global.setClearTextField(jPanel1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Global.konfirmasiHapus(rootPane, new AksiHapus() {
+
+            @Override
+            public void run(int status) {
+                if (status == JOptionPane.OK_OPTION) {
+                    int[] selection = jTable1.getSelectedRows();
+                    for (int sel : selection) {
+                        try {
+                            control.destroy(jTable1.getValueAt(sel, 0).toString());
+                        } catch (Exception ex) {
+                        }
+                    }
+                    loadData();
+                }
+            }
+        });
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Global.showProgress();
+        setModelData();
+        try {
+            control.edit(model);
+            loadData();
+            JOptionPane.showMessageDialog(rootPane, "Sertifikasi sudah berhasil diedit.");
+        } catch (Exception ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (jTable1.getSelectedRowCount() == 1) {
+            int sel = jTable1.getSelectedRow();
+            jTextField1.setText(jTable1.getValueAt(sel, 0).toString());
+            jTextField2.setText(jTable1.getValueAt(sel, 1).toString());
+            jTextField3.setText(jTable1.getValueAt(sel, 2).toString());
+            jTextField4.setText(jTable1.getValueAt(sel, 3).toString());
+            if (jTable1.getValueAt(sel, 4) != null || !"".equals(jTable1.getValueAt(sel, 4))) {
+                try {
+                    jDateChooser1.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(jTable1.getValueAt(sel, 4).toString()));
+                } catch (ParseException ex) {
+                }
+            }
+        } else {
+            Global.setEnabledTextField(jPanel1);
+            Global.setClearTextField(jPanel1);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

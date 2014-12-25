@@ -179,10 +179,11 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Global.showProgress();
-        model.Admin model = control.findAdmin(jTextField1.getText());
+        final model.Admin model = control.findAdmin(jTextField1.getText());
         if (model != null && model.getPassword().equals(Global.setPasswordHashing(String.valueOf(jPasswordField1.getPassword())))) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
+                    Global.setModelAdmin(model);
                     Login.this.dispose();
                     new Utama().setVisible(true);
                 }
