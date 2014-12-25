@@ -17,12 +17,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
+import model.Admin;
 
 /**
  *
  * @author idham
  */
 public class Global {
+
+    private static Admin modelAdmin;
+
+    public static void setModelAdmin(final Admin admin) {
+        modelAdmin = admin;
+    }
+
+    public static Admin getModelAdmin() {
+        return modelAdmin;
+    }
 
     public static void setEnabledTextField(JPanel jPanel) {
         setEnabledTextField(jPanel, true);
