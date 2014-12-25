@@ -5,18 +5,62 @@
  */
 package sppbe;
 
+import java.awt.Component;
 import java.awt.Window;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
 /**
  *
  * @author idham
  */
 public class Global {
+
+    public static void setEnabledTextField(JPanel jPanel) {
+        setEnabledTextField(jPanel, true);
+    }
+
+    public static void setEnabledTextField(JPanel jPanel, boolean b) {
+        Component[] component = jPanel.getComponents();
+        for (Component com : component) {
+            if (com instanceof JTextField) {
+                com.setEnabled(b);
+            }
+            if (com instanceof JScrollPane) {
+                Component[] component2 = ((JScrollPane) com).getViewport().getComponents();
+                for (Component com2 : component2) {
+                    if (com2 instanceof JTextField || com2 instanceof JTextArea) {
+                        com2.setEnabled(b);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void setClearTextField(JPanel jPanel) {
+        Component[] component = jPanel.getComponents();
+        for (Component com : component) {
+            if (com instanceof JTextField || com instanceof JTextArea) {
+                ((JTextComponent) com).setText("");
+            }
+            if (com instanceof JScrollPane) {
+                Component[] component2 = ((JScrollPane) com).getViewport().getComponents();
+                for (Component com2 : component2) {
+                    if (com2 instanceof JTextField || com2 instanceof JTextArea) {
+                        ((JTextComponent) com2).setText("");
+                    }
+                }
+            }
+        }
+    }
 
     public Global() {
     }
