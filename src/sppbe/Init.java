@@ -5,9 +5,7 @@
  */
 package sppbe;
 
-import controllers.AdminJpaController;
-import static sppbe.Config.EMF;
-import views.Utama;
+import views.Login;
 
 /**
  *
@@ -21,12 +19,7 @@ public class Init {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                // sementara
-                AdminJpaController control = new AdminJpaController(EMF);
-                final model.Admin model = control.findAdmin("admin");
-                Global.setModelAdmin(model);
-                //new Login().setVisible(true);
-                new Utama().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
