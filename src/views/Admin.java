@@ -65,6 +65,9 @@ public class Admin extends javax.swing.JInternalFrame {
         model.setNamaAdmin(jTextField2.getText());
         if (!"".equals(String.valueOf(jPasswordField1.getPassword()))) {
             model.setPassword(Global.setPasswordHashing(String.valueOf(jPasswordField1.getPassword())));
+        } else {
+            final model.Admin modelEdit = control.findAdmin(jTextField1.getText());
+            model.setPassword(modelEdit.getPassword());
         }
         model.setAlamatAdmin(jTextArea1.getText());
         model.setNoHpAdmin(jTextField5.getText());
