@@ -5,11 +5,17 @@
  */
 package views;
 
-import controllers.PerpanjangJpaController;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import static sppbe.Config.EMF;
+import sppbe.Config;
 import sppbe.Global;
 
 /**
@@ -18,21 +24,16 @@ import sppbe.Global;
  */
 public class Perpanjangan extends javax.swing.JInternalFrame {
 
-    PerpanjangJpaController control;
-    model.Perpanjang model;
-    private static String Id;
-
     /**
      * Creates new form perpanjangan
      */
     public Perpanjangan() {
         initComponents();
-        control = new PerpanjangJpaController(EMF);
         loadData();
     }
 
     private void loadData() {
-        Object row[] = {"Kode Peringatan", "Jenis Peringatan", "Tanggal Perpanjang"};
+        Object row[] = {"Kode", "Jenis Peringatan", "Tanggal Perpanjang"};
         DefaultTableModel tableModel = new DefaultTableModel(null, row) {
 
             @Override
@@ -45,23 +46,62 @@ public class Perpanjangan extends javax.swing.JInternalFrame {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-        for (model.Perpanjang field : control.findPerpanjangEntities()) {
-            String[] data = {
-                field.getKodePerpanjang(),};
-            tableModel.addRow(data);
+        try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
+
+            Statement statement = conn.createStatement();
+
+            String sql_pajak = "SELECT Kode_Pajak, Tgl_Jatuh_Tempo_Pjk FROM Pajak WHERE Tgl_Jatuh_Tempo_Pjk <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_pajak = statement.executeQuery(sql_pajak);
+
+            while (result_pajak.next()) {
+                String[] data = {
+                    result_pajak.getString(1),
+                    "Pajak",
+                    sdf.format(result_pajak.getDate(2))
+                };
+                tableModel.addRow(data);
+            }
+
+            String sql_pengujian = "SELECT Kode_Pengujian, Tgl_Jatuh_Tempo_Pgjn FROM Pengujian WHERE Tgl_Jatuh_Tempo_Pgjn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_pengujian = statement.executeQuery(sql_pengujian);
+
+            while (result_pengujian.next()) {
+                String[] data = {
+                    result_pengujian.getString(1),
+                    "Pengujian",
+                    sdf.format(result_pengujian.getDate(2))
+                };
+                tableModel.addRow(data);
+            }
+
+            String sql_perizinan = "SELECT Kode_Perizinan, Tgl_Jatuh_Tempo_Przn FROM Perizinan WHERE Tgl_Jatuh_Tempo_Przn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_perizinan = statement.executeQuery(sql_perizinan);
+
+            while (result_perizinan.next()) {
+                String[] data = {
+                    result_perizinan.getString(1),
+                    "Perizinan",
+                    sdf.format(result_perizinan.getDate(2))
+                };
+                tableModel.addRow(data);
+            }
+
+            String sql_sertifikasi = "SELECT Kode_Sertifikasi, Tgl_Jatuh_Tempo_Srks FROM Sertifikasi WHERE Tgl_Jatuh_Tempo_Srks <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_sertifikasi = statement.executeQuery(sql_sertifikasi);
+
+            while (result_sertifikasi.next()) {
+                String[] data = {
+                    result_sertifikasi.getString(1),
+                    "Sertifikasi",
+                    sdf.format(result_sertifikasi.getDate(2))
+                };
+                tableModel.addRow(data);
+            }
+
+        } catch (SQLException ex) {
         }
         Global.setEnabledTextField(jPanel1, false);
         Global.setClearTextField(jPanel1);
-    }
-
-    private void setModelData() {
-        model = new model.Perpanjang();
-        //model.setKodePerpanjang(jComboBox1.getSelectedItem());
-        model.setTglPerpanjang(jDateChooser1.getDate());
-    }
-
-    private boolean validateField() {
-        return false;
     }
 
     /**
@@ -241,11 +281,45 @@ public class Perpanjangan extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
+
+            String sql = null;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            switch (jTextField2.getText().toLowerCase()) {
+                case "pajak":
+                    sql = "UPDATE Pajak SET Tgl_Jatuh_Tempo_Pjk=? WHERE Kode_Pajak=?";
+                    break;
+                case "pengujian":
+                    sql = "UPDATE Pengujian SET Tgl_Jatuh_Tempo_Pgjn=? WHERE Kode_Pengujian=?";
+                    break;
+                case "perizinan":
+                    sql = "UPDATE Perizinan SET Tgl_Jatuh_Tempo_Przn=? WHERE Kode_Perizinan=?";
+                    break;
+                case "sertifikasi":
+                    sql = "UPDATE Sertifikasi SET Tgl_Jatuh_Tempo_Srks=? WHERE Kode_Sertifikasi=?";
+                    break;
+            }
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setDate(1, new java.sql.Date(jDateChooser1.getDate().getTime()));
+            statement.setString(2, jTextField1.getText());
+
+            int rowsUpdated = statement.executeUpdate();
+            loadData();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Perpanjangan sudah berhasil diperbaharui.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (SQLException ex) {
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        if (!"".equals(jTextField1.getText())) {
+            jDateChooser1.setEnabled(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -253,17 +327,16 @@ public class Perpanjangan extends javax.swing.JInternalFrame {
             int sel = jTable1.getSelectedRow();
             jTextField1.setText(jTable1.getValueAt(sel, 0).toString());
             jTextField2.setText(jTable1.getValueAt(sel, 1).toString());
-            if (jTable1.getValueAt(sel, 4) != null || !"".equals(jTable1.getValueAt(sel, 4))) {
+            if (jTable1.getValueAt(sel, 2) != null || !"".equals(jTable1.getValueAt(sel, 2))) {
                 try {
-                    jDateChooser1.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(jTable1.getValueAt(sel, 4).toString()));
+                    jDateChooser1.setDate(new SimpleDateFormat("dd-MM-yyyy").parse(jTable1.getValueAt(sel, 2).toString()));
                 } catch (ParseException ex) {
                 }
             }
-            jDateChooser1.setEnabled(true);
         } else {
-            Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
+        Global.setEnabledTextField(jPanel1, false);
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

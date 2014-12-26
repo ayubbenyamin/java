@@ -6,6 +6,7 @@
 package views;
 
 import controllers.SMSPeringatanJpaController;
+import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 import static sppbe.Config.EMF;
 
@@ -15,7 +16,6 @@ import static sppbe.Config.EMF;
  */
 public class Smsperingatan extends javax.swing.JInternalFrame {
 
-    DefaultTableModel tableModel;
     SMSPeringatanJpaController control;
     model.SMSPeringatan model;
 
@@ -24,19 +24,54 @@ public class Smsperingatan extends javax.swing.JInternalFrame {
      */
     public Smsperingatan() {
         initComponents();
-        Object row[] = {"Kode SMS", "Kode Peringatan", "Berita Terkirim", "Tanggal Pengiriman", "Isi SMS", "Nama", "No Hp"};
-        tableModel = new DefaultTableModel(null, row);
-        jTable1.setModel(tableModel);
         control = new SMSPeringatanJpaController(EMF);
         loadData();
     }
 
     private void loadData() {
+        Object row[] = {"Kode SMS", "Kode Peringatan", "Berita Terkirim", "Tanggal Pengiriman", "Isi SMS", "Nama", "No Hp"};
+        DefaultTableModel tableModel = new DefaultTableModel(null, row);
+        jTable1.setModel(tableModel);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
         for (model.SMSPeringatan field : control.findSMSPeringatanEntities()) {
+            String berita = null;
+            switch (field.getBeritaTerkirim()) {
+                case "SendingOK":
+                    berita = "Terkirim";
+                    break;
+                case "SendingOKNoReport":
+                    berita = "Terkirim, tidak ada laporan";
+                    break;
+                case "SendingError":
+                    berita = "Terkirim Error";
+                    break;
+                case "DeliveryOK":
+                    berita = "Pengiriman sukses";
+                    break;
+                case "DeliveryFailed":
+                    berita = "Pengiriman gagal";
+                    break;
+                case "DeliveryPending":
+                    berita = "Tunda";
+                    break;
+                case "DeliveryUnknown":
+                    berita = "Pengiriman tidak diketahui";
+                    break;
+                case "Error":
+                    berita = "Gagal";
+                    break;
+
+            }
             String[] data = {
-                field.getBeritaTerkirim(),
-                //field.getTglPengiriman(),
-                field.getNama(), //field.getNoHp()
+                field.getKodeSMSPeringatan(),
+                field.getKodePerpanjangan(),
+                berita,
+                sdf.format(field.getTglPengiriman()),
+                field.getIsiSMS(),
+                field.getNama(),
+                field.getNoHp().toString()
             };
             tableModel.addRow(data);
         }

@@ -32,11 +32,14 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "SMSPeringatan.findByNama", query = "SELECT s FROM SMSPeringatan s WHERE s.nama = :nama"),
     @NamedQuery(name = "SMSPeringatan.findByNoHp", query = "SELECT s FROM SMSPeringatan s WHERE s.noHp = :noHp")})
 public class SMSPeringatan implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Kode_SMS_Peringatan")
     private String kodeSMSPeringatan;
+    @Column(name = "Kode_Perpanjang")
+    private String kodePerpanjangan;
     @Column(name = "Berita_Terkirim")
     private String beritaTerkirim;
     @Column(name = "Tgl_Pengiriman")
@@ -63,6 +66,14 @@ public class SMSPeringatan implements Serializable {
 
     public void setKodeSMSPeringatan(String kodeSMSPeringatan) {
         this.kodeSMSPeringatan = kodeSMSPeringatan;
+    }
+
+    public String getKodePerpanjangan() {
+        return kodePerpanjangan;
+    }
+
+    public void setKodePerpanjangan(String kodePerpanjangan) {
+        this.kodePerpanjangan = kodePerpanjangan;
     }
 
     public String getBeritaTerkirim() {
