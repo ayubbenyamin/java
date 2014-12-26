@@ -25,4 +25,11 @@ public final class Config {
     public static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("SPPBEPU");
     public static final String REMOVE_RECORD_TITLE = "Hapus data";
     public static final String REMOVE_RECORD_MESSAGE = "Anda yakin untuk menghapus data yang dipilih?\nKlik " + BUTTON_OK + " untuk melanjutkan";
+    public static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/sppbe";
+    public static final String DB_USER = "root";
+    public static final String DB_PASSWORD = "";
+    // Interval ini dihitung dalam detik, contoh:
+    // 5 detik = 5 * 1000
+    // 1 jam = 1 * 60 * 60 * 1000
+    public static final long INTERVAL_CHECK_SMS = 5 * 1000;
 }
