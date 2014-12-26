@@ -29,7 +29,9 @@ public final class Config {
     public static final String DB_USER = "root";
     public static final String DB_PASSWORD = "";
     // Interval ini dihitung dalam detik, contoh:
-    // 5 detik = 5 * 1000
+    // 15 detik = 15 * 1000
+    // 1 menit = 1 * 60 * 1000
     // 1 jam = 1 * 60 * 60 * 1000
-    public static final long INTERVAL_CHECK_SMS = 5 * 1000;
+    // dst
+    public static final long INTERVAL_CHECK_SMS = 15 * 1000;
 }

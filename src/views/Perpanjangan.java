@@ -289,16 +289,16 @@ public class Perpanjangan extends javax.swing.JInternalFrame {
 
             switch (jTextField2.getText().toLowerCase()) {
                 case "pajak":
-                    sql = "UPDATE Pajak SET Tgl_Jatuh_Tempo_Pjk=? WHERE Kode_Pajak=?";
+                    sql = "UPDATE Pajak SET sms_terkirim='0', Tgl_Jatuh_Tempo_Pjk=? WHERE Kode_Pajak=?";
                     break;
                 case "pengujian":
-                    sql = "UPDATE Pengujian SET Tgl_Jatuh_Tempo_Pgjn=? WHERE Kode_Pengujian=?";
+                    sql = "UPDATE Pengujian SET sms_terkirim='0', Tgl_Jatuh_Tempo_Pgjn=? WHERE Kode_Pengujian=?";
                     break;
                 case "perizinan":
-                    sql = "UPDATE Perizinan SET Tgl_Jatuh_Tempo_Przn=? WHERE Kode_Perizinan=?";
+                    sql = "UPDATE Perizinan SET sms_terkirim='0', Tgl_Jatuh_Tempo_Przn=? WHERE Kode_Perizinan=?";
                     break;
                 case "sertifikasi":
-                    sql = "UPDATE Sertifikasi SET Tgl_Jatuh_Tempo_Srks=? WHERE Kode_Sertifikasi=?";
+                    sql = "UPDATE Sertifikasi SET sms_terkirim='0', Tgl_Jatuh_Tempo_Srks=? WHERE Kode_Sertifikasi=?";
                     break;
             }
 
