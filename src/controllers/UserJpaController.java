@@ -15,7 +15,6 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.SMSPeringatan;
 import model.User;
 
 /**
@@ -38,16 +37,7 @@ public class UserJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            SMSPeringatan kodeSMSPeringatan = user.getKodeSMSPeringatan();
-            if (kodeSMSPeringatan != null) {
-                kodeSMSPeringatan = em.getReference(kodeSMSPeringatan.getClass(), kodeSMSPeringatan.getKodeSMSPeringatan());
-                user.setKodeSMSPeringatan(kodeSMSPeringatan);
-            }
             em.persist(user);
-            if (kodeSMSPeringatan != null) {
-                kodeSMSPeringatan.getUserCollection().add(user);
-                kodeSMSPeringatan = em.merge(kodeSMSPeringatan);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findUser(user.getIdUser()) != null) {
@@ -66,22 +56,7 @@ public class UserJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            User persistentUser = em.find(User.class, user.getIdUser());
-            SMSPeringatan kodeSMSPeringatanOld = persistentUser.getKodeSMSPeringatan();
-            SMSPeringatan kodeSMSPeringatanNew = user.getKodeSMSPeringatan();
-            if (kodeSMSPeringatanNew != null) {
-                kodeSMSPeringatanNew = em.getReference(kodeSMSPeringatanNew.getClass(), kodeSMSPeringatanNew.getKodeSMSPeringatan());
-                user.setKodeSMSPeringatan(kodeSMSPeringatanNew);
-            }
             user = em.merge(user);
-            if (kodeSMSPeringatanOld != null && !kodeSMSPeringatanOld.equals(kodeSMSPeringatanNew)) {
-                kodeSMSPeringatanOld.getUserCollection().remove(user);
-                kodeSMSPeringatanOld = em.merge(kodeSMSPeringatanOld);
-            }
-            if (kodeSMSPeringatanNew != null && !kodeSMSPeringatanNew.equals(kodeSMSPeringatanOld)) {
-                kodeSMSPeringatanNew.getUserCollection().add(user);
-                kodeSMSPeringatanNew = em.merge(kodeSMSPeringatanNew);
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -110,11 +85,6 @@ public class UserJpaController implements Serializable {
                 user.getIdUser();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The user with id " + id + " no longer exists.", enfe);
-            }
-            SMSPeringatan kodeSMSPeringatan = user.getKodeSMSPeringatan();
-            if (kodeSMSPeringatan != null) {
-                kodeSMSPeringatan.getUserCollection().remove(user);
-                kodeSMSPeringatan = em.merge(kodeSMSPeringatan);
             }
             em.remove(user);
             em.getTransaction().commit();

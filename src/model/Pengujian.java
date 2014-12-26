@@ -6,7 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,12 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pengujian.findByTglJatuhTempoPgjn", query = "SELECT p FROM Pengujian p WHERE p.tglJatuhTempoPgjn = :tglJatuhTempoPgjn"),
     @NamedQuery(name = "Pengujian.findBySumberPengujian", query = "SELECT p FROM Pengujian p WHERE p.sumberPengujian = :sumberPengujian")})
 public class Pengujian implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -55,8 +53,6 @@ public class Pengujian implements Serializable {
     private Date tglJatuhTempoPgjn;
     @Column(name = "Sumber_Pengujian")
     private String sumberPengujian;
-    @OneToMany(mappedBy = "kodePengujian")
-    private Collection<Perpanjang> perpanjangCollection;
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne(optional = false)
     private Admin idAdmin;
@@ -114,15 +110,6 @@ public class Pengujian implements Serializable {
 
     public void setSumberPengujian(String sumberPengujian) {
         this.sumberPengujian = sumberPengujian;
-    }
-
-    @XmlTransient
-    public Collection<Perpanjang> getPerpanjangCollection() {
-        return perpanjangCollection;
-    }
-
-    public void setPerpanjangCollection(Collection<Perpanjang> perpanjangCollection) {
-        this.perpanjangCollection = perpanjangCollection;
     }
 
     public Admin getIdAdmin() {

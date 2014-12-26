@@ -6,31 +6,24 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author idham
  */
 @Entity
-@Table(name = "SMS Peringatan")
-@XmlRootElement
+@Table(name = "SMSPeringatan")
 @NamedQueries({
     @NamedQuery(name = "SMSPeringatan.findAll", query = "SELECT s FROM SMSPeringatan s"),
     @NamedQuery(name = "SMSPeringatan.findByKodeSMSPeringatan", query = "SELECT s FROM SMSPeringatan s WHERE s.kodeSMSPeringatan = :kodeSMSPeringatan"),
@@ -56,11 +49,6 @@ public class SMSPeringatan implements Serializable {
     private String nama;
     @Column(name = "No_Hp")
     private Long noHp;
-    @OneToMany(mappedBy = "kodeSMSPeringatan")
-    private Collection<User> userCollection;
-    @JoinColumn(name = "Kode_Perpanjang", referencedColumnName = "Kode_Perpanjang")
-    @ManyToOne
-    private Perpanjang kodePerpanjang;
 
     public SMSPeringatan() {
     }
@@ -115,23 +103,6 @@ public class SMSPeringatan implements Serializable {
 
     public void setNoHp(Long noHp) {
         this.noHp = noHp;
-    }
-
-    @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
-    }
-
-    public Perpanjang getKodePerpanjang() {
-        return kodePerpanjang;
-    }
-
-    public void setKodePerpanjang(Perpanjang kodePerpanjang) {
-        this.kodePerpanjang = kodePerpanjang;
     }
 
     @Override

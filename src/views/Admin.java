@@ -32,7 +32,6 @@ public class Admin extends javax.swing.JInternalFrame {
         initComponents();
         control = new AdminJpaController(EMF);
         loadData();
-        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void loadData() {
@@ -55,6 +54,8 @@ public class Admin extends javax.swing.JInternalFrame {
             };
             tableModel.addRow(data);
         }
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
     }
 
     private void setModelData() {
@@ -355,10 +356,9 @@ public class Admin extends javax.swing.JInternalFrame {
         try {
             control.create(model);
             loadData();
-            Global.setClearTextField(jPanel1);
         } catch (Exception ex) {
             if (control.findAdmin(model.getIdAdmin()) != null) {
-                JOptionPane.showMessageDialog(rootPane, "Admin ID " + model.getIdAdmin() + " sudah ada di database.", null, JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(rootPane, "Admin ID " + model.getIdAdmin() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -382,7 +382,7 @@ public class Admin extends javax.swing.JInternalFrame {
                 Global.setModelAdmin(model);
             }
             loadData();
-            JOptionPane.showMessageDialog(rootPane, "Admin sudah berhasil diedit.", null, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Admin sudah berhasil diedit.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -401,7 +401,7 @@ public class Admin extends javax.swing.JInternalFrame {
 
                             model.Admin adminLogin = Global.getModelAdmin();
                             if (adminLogin.getIdAdmin().equals(idAdmin)) {
-                                JOptionPane.showMessageDialog(rootPane, "Anda sedang login, data anda tidak akan dihapus.");
+                                JOptionPane.showMessageDialog(rootPane, "Anda sedang login, data anda tidak akan dihapus.", "Pesan", JOptionPane.WARNING_MESSAGE);
                                 continue;
                             }
                             control.destroy(idAdmin);
@@ -421,8 +421,10 @@ public class Admin extends javax.swing.JInternalFrame {
             jTextField2.setText(jTable1.getValueAt(sel, 1).toString());
             jTextArea1.setText(jTable1.getValueAt(sel, 2).toString());
             jTextField5.setText(jTable1.getValueAt(sel, 3).toString());
-        } else {
             Global.setEnabledTextField(jPanel1);
+            jTextField1.setEnabled(false);
+        } else {
+            Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
     }//GEN-LAST:event_jTable1MouseClicked

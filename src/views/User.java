@@ -28,7 +28,6 @@ public class User extends javax.swing.JInternalFrame {
         initComponents();
         control = new UserJpaController(EMF);
         loadData();
-        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void loadData() {
@@ -51,6 +50,8 @@ public class User extends javax.swing.JInternalFrame {
             };
             tableModel.addRow(data);
         }
+        Global.setClearTextField(jPanel1);
+        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void setModelData() {
@@ -306,10 +307,9 @@ public class User extends javax.swing.JInternalFrame {
         try {
             control.create(model);
             loadData();
-            Global.setClearTextField(jPanel1);
         } catch (Exception ex) {
             if (control.findUser(model.getIdUser()) != null) {
-                JOptionPane.showMessageDialog(rootPane, "User ID " + model.getIdUser() + " sudah ada di database.");
+                JOptionPane.showMessageDialog(rootPane, "User ID " + model.getIdUser() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -330,6 +330,9 @@ public class User extends javax.swing.JInternalFrame {
                         try {
                             control.destroy(jTable1.getValueAt(sel, 0).toString());
                         } catch (Exception ex) {
+                            if (ex.getMessage().contains("Error Code: 1451")) {
+                                JOptionPane.showMessageDialog(rootPane, "User \"" + jTable1.getValueAt(sel, 0).toString() + "\" tidak bisa dihapus karena sudah memiliki relasi dengan tabel lain.\nSilahkan hapus relasi di tabel lain terlebih dahulu.", "Pesan", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
                     }
                     loadData();
@@ -344,7 +347,7 @@ public class User extends javax.swing.JInternalFrame {
         try {
             control.edit(model);
             loadData();
-            JOptionPane.showMessageDialog(rootPane, "User sudah berhasil diedit.");
+            JOptionPane.showMessageDialog(rootPane, "User sudah berhasil diedit.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -356,8 +359,10 @@ public class User extends javax.swing.JInternalFrame {
             jTextField2.setText(jTable1.getValueAt(sel, 1).toString());
             jTextField3.setText(jTable1.getValueAt(sel, 2).toString());
             jTextArea1.setText(jTable1.getValueAt(sel, 3).toString());
-        } else {
             Global.setEnabledTextField(jPanel1);
+            jTextField1.setEnabled(false);
+        } else {
+            Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
     }//GEN-LAST:event_jTable1MouseClicked

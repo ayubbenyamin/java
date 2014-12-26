@@ -32,7 +32,6 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         initComponents();
         control = new SertifikasiJpaController(EMF);
         loadData();
-        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void loadData() {
@@ -59,6 +58,8 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
             };
             tableModel.addRow(data);
         }
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
     }
 
     private void setModelData() {
@@ -213,12 +214,11 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(jTextField3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                        .addComponent(jTextField3))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(238, 238, 238)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -318,10 +318,9 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         try {
             control.create(model);
             loadData();
-            Global.setClearTextField(jPanel1);
         } catch (Exception ex) {
             if (control.findSertifikasi(model.getKodeSertifikasi()) != null) {
-                JOptionPane.showMessageDialog(rootPane, "Kode Sertifikasi " + model.getKodeSertifikasi() + " sudah ada di database.");
+                JOptionPane.showMessageDialog(rootPane, "Kode Sertifikasi " + model.getKodeSertifikasi() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -356,7 +355,7 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
         try {
             control.edit(model);
             loadData();
-            JOptionPane.showMessageDialog(rootPane, "Sertifikasi sudah berhasil diedit.");
+            JOptionPane.showMessageDialog(rootPane, "Sertifikasi sudah berhasil diedit.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -375,8 +374,10 @@ public class Sertifikasi extends javax.swing.JInternalFrame {
                 } catch (ParseException ex) {
                 }
             }
-        } else {
             Global.setEnabledTextField(jPanel1);
+            jTextField1.setEnabled(false);
+        } else {
+            Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
     }//GEN-LAST:event_jTable1MouseClicked

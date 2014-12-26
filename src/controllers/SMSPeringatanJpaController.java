@@ -8,17 +8,13 @@ package controllers;
 import controllers.exceptions.NonexistentEntityException;
 import controllers.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Perpanjang;
-import model.User;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import model.SMSPeringatan;
 
 /**
@@ -37,38 +33,11 @@ public class SMSPeringatanJpaController implements Serializable {
     }
 
     public void create(SMSPeringatan SMSPeringatan) throws PreexistingEntityException, Exception {
-        if (SMSPeringatan.getUserCollection() == null) {
-            SMSPeringatan.setUserCollection(new ArrayList<User>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Perpanjang kodePerpanjang = SMSPeringatan.getKodePerpanjang();
-            if (kodePerpanjang != null) {
-                kodePerpanjang = em.getReference(kodePerpanjang.getClass(), kodePerpanjang.getKodePerpanjang());
-                SMSPeringatan.setKodePerpanjang(kodePerpanjang);
-            }
-            Collection<User> attachedUserCollection = new ArrayList<User>();
-            for (User userCollectionUserToAttach : SMSPeringatan.getUserCollection()) {
-                userCollectionUserToAttach = em.getReference(userCollectionUserToAttach.getClass(), userCollectionUserToAttach.getIdUser());
-                attachedUserCollection.add(userCollectionUserToAttach);
-            }
-            SMSPeringatan.setUserCollection(attachedUserCollection);
             em.persist(SMSPeringatan);
-            if (kodePerpanjang != null) {
-                kodePerpanjang.getSMSPeringatanCollection().add(SMSPeringatan);
-                kodePerpanjang = em.merge(kodePerpanjang);
-            }
-            for (User userCollectionUser : SMSPeringatan.getUserCollection()) {
-                SMSPeringatan oldKodeSMSPeringatanOfUserCollectionUser = userCollectionUser.getKodeSMSPeringatan();
-                userCollectionUser.setKodeSMSPeringatan(SMSPeringatan);
-                userCollectionUser = em.merge(userCollectionUser);
-                if (oldKodeSMSPeringatanOfUserCollectionUser != null) {
-                    oldKodeSMSPeringatanOfUserCollectionUser.getUserCollection().remove(userCollectionUser);
-                    oldKodeSMSPeringatanOfUserCollectionUser = em.merge(oldKodeSMSPeringatanOfUserCollectionUser);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findSMSPeringatan(SMSPeringatan.getKodeSMSPeringatan()) != null) {
@@ -87,48 +56,7 @@ public class SMSPeringatanJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            SMSPeringatan persistentSMSPeringatan = em.find(SMSPeringatan.class, SMSPeringatan.getKodeSMSPeringatan());
-            Perpanjang kodePerpanjangOld = persistentSMSPeringatan.getKodePerpanjang();
-            Perpanjang kodePerpanjangNew = SMSPeringatan.getKodePerpanjang();
-            Collection<User> userCollectionOld = persistentSMSPeringatan.getUserCollection();
-            Collection<User> userCollectionNew = SMSPeringatan.getUserCollection();
-            if (kodePerpanjangNew != null) {
-                kodePerpanjangNew = em.getReference(kodePerpanjangNew.getClass(), kodePerpanjangNew.getKodePerpanjang());
-                SMSPeringatan.setKodePerpanjang(kodePerpanjangNew);
-            }
-            Collection<User> attachedUserCollectionNew = new ArrayList<User>();
-            for (User userCollectionNewUserToAttach : userCollectionNew) {
-                userCollectionNewUserToAttach = em.getReference(userCollectionNewUserToAttach.getClass(), userCollectionNewUserToAttach.getIdUser());
-                attachedUserCollectionNew.add(userCollectionNewUserToAttach);
-            }
-            userCollectionNew = attachedUserCollectionNew;
-            SMSPeringatan.setUserCollection(userCollectionNew);
             SMSPeringatan = em.merge(SMSPeringatan);
-            if (kodePerpanjangOld != null && !kodePerpanjangOld.equals(kodePerpanjangNew)) {
-                kodePerpanjangOld.getSMSPeringatanCollection().remove(SMSPeringatan);
-                kodePerpanjangOld = em.merge(kodePerpanjangOld);
-            }
-            if (kodePerpanjangNew != null && !kodePerpanjangNew.equals(kodePerpanjangOld)) {
-                kodePerpanjangNew.getSMSPeringatanCollection().add(SMSPeringatan);
-                kodePerpanjangNew = em.merge(kodePerpanjangNew);
-            }
-            for (User userCollectionOldUser : userCollectionOld) {
-                if (!userCollectionNew.contains(userCollectionOldUser)) {
-                    userCollectionOldUser.setKodeSMSPeringatan(null);
-                    userCollectionOldUser = em.merge(userCollectionOldUser);
-                }
-            }
-            for (User userCollectionNewUser : userCollectionNew) {
-                if (!userCollectionOld.contains(userCollectionNewUser)) {
-                    SMSPeringatan oldKodeSMSPeringatanOfUserCollectionNewUser = userCollectionNewUser.getKodeSMSPeringatan();
-                    userCollectionNewUser.setKodeSMSPeringatan(SMSPeringatan);
-                    userCollectionNewUser = em.merge(userCollectionNewUser);
-                    if (oldKodeSMSPeringatanOfUserCollectionNewUser != null && !oldKodeSMSPeringatanOfUserCollectionNewUser.equals(SMSPeringatan)) {
-                        oldKodeSMSPeringatanOfUserCollectionNewUser.getUserCollection().remove(userCollectionNewUser);
-                        oldKodeSMSPeringatanOfUserCollectionNewUser = em.merge(oldKodeSMSPeringatanOfUserCollectionNewUser);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -157,16 +85,6 @@ public class SMSPeringatanJpaController implements Serializable {
                 SMSPeringatan.getKodeSMSPeringatan();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The SMSPeringatan with id " + id + " no longer exists.", enfe);
-            }
-            Perpanjang kodePerpanjang = SMSPeringatan.getKodePerpanjang();
-            if (kodePerpanjang != null) {
-                kodePerpanjang.getSMSPeringatanCollection().remove(SMSPeringatan);
-                kodePerpanjang = em.merge(kodePerpanjang);
-            }
-            Collection<User> userCollection = SMSPeringatan.getUserCollection();
-            for (User userCollectionUser : userCollection) {
-                userCollectionUser.setKodeSMSPeringatan(null);
-                userCollectionUser = em.merge(userCollectionUser);
             }
             em.remove(SMSPeringatan);
             em.getTransaction().commit();

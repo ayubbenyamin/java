@@ -8,16 +8,13 @@ package controllers;
 import controllers.exceptions.NonexistentEntityException;
 import controllers.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Perpanjang;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import model.Sertifikasi;
 
 /**
@@ -36,29 +33,11 @@ public class SertifikasiJpaController implements Serializable {
     }
 
     public void create(Sertifikasi sertifikasi) throws PreexistingEntityException, Exception {
-        if (sertifikasi.getPerpanjangCollection() == null) {
-            sertifikasi.setPerpanjangCollection(new ArrayList<Perpanjang>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Perpanjang> attachedPerpanjangCollection = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionPerpanjangToAttach : sertifikasi.getPerpanjangCollection()) {
-                perpanjangCollectionPerpanjangToAttach = em.getReference(perpanjangCollectionPerpanjangToAttach.getClass(), perpanjangCollectionPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollection.add(perpanjangCollectionPerpanjangToAttach);
-            }
-            sertifikasi.setPerpanjangCollection(attachedPerpanjangCollection);
             em.persist(sertifikasi);
-            for (Perpanjang perpanjangCollectionPerpanjang : sertifikasi.getPerpanjangCollection()) {
-                Sertifikasi oldKodeSertifikasiOfPerpanjangCollectionPerpanjang = perpanjangCollectionPerpanjang.getKodeSertifikasi();
-                perpanjangCollectionPerpanjang.setKodeSertifikasi(sertifikasi);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
-                if (oldKodeSertifikasiOfPerpanjangCollectionPerpanjang != null) {
-                    oldKodeSertifikasiOfPerpanjangCollectionPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionPerpanjang);
-                    oldKodeSertifikasiOfPerpanjangCollectionPerpanjang = em.merge(oldKodeSertifikasiOfPerpanjangCollectionPerpanjang);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findSertifikasi(sertifikasi.getKodeSertifikasi()) != null) {
@@ -77,34 +56,7 @@ public class SertifikasiJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Sertifikasi persistentSertifikasi = em.find(Sertifikasi.class, sertifikasi.getKodeSertifikasi());
-            Collection<Perpanjang> perpanjangCollectionOld = persistentSertifikasi.getPerpanjangCollection();
-            Collection<Perpanjang> perpanjangCollectionNew = sertifikasi.getPerpanjangCollection();
-            Collection<Perpanjang> attachedPerpanjangCollectionNew = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionNewPerpanjangToAttach : perpanjangCollectionNew) {
-                perpanjangCollectionNewPerpanjangToAttach = em.getReference(perpanjangCollectionNewPerpanjangToAttach.getClass(), perpanjangCollectionNewPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollectionNew.add(perpanjangCollectionNewPerpanjangToAttach);
-            }
-            perpanjangCollectionNew = attachedPerpanjangCollectionNew;
-            sertifikasi.setPerpanjangCollection(perpanjangCollectionNew);
             sertifikasi = em.merge(sertifikasi);
-            for (Perpanjang perpanjangCollectionOldPerpanjang : perpanjangCollectionOld) {
-                if (!perpanjangCollectionNew.contains(perpanjangCollectionOldPerpanjang)) {
-                    perpanjangCollectionOldPerpanjang.setKodeSertifikasi(null);
-                    perpanjangCollectionOldPerpanjang = em.merge(perpanjangCollectionOldPerpanjang);
-                }
-            }
-            for (Perpanjang perpanjangCollectionNewPerpanjang : perpanjangCollectionNew) {
-                if (!perpanjangCollectionOld.contains(perpanjangCollectionNewPerpanjang)) {
-                    Sertifikasi oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang = perpanjangCollectionNewPerpanjang.getKodeSertifikasi();
-                    perpanjangCollectionNewPerpanjang.setKodeSertifikasi(sertifikasi);
-                    perpanjangCollectionNewPerpanjang = em.merge(perpanjangCollectionNewPerpanjang);
-                    if (oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang != null && !oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang.equals(sertifikasi)) {
-                        oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionNewPerpanjang);
-                        oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang = em.merge(oldKodeSertifikasiOfPerpanjangCollectionNewPerpanjang);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -133,11 +85,6 @@ public class SertifikasiJpaController implements Serializable {
                 sertifikasi.getKodeSertifikasi();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The sertifikasi with id " + id + " no longer exists.", enfe);
-            }
-            Collection<Perpanjang> perpanjangCollection = sertifikasi.getPerpanjangCollection();
-            for (Perpanjang perpanjangCollectionPerpanjang : perpanjangCollection) {
-                perpanjangCollectionPerpanjang.setKodeSertifikasi(null);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
             }
             em.remove(sertifikasi);
             em.getTransaction().commit();

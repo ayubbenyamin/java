@@ -6,7 +6,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,12 +15,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -39,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pajak.findByPokokPajak", query = "SELECT p FROM Pajak p WHERE p.pokokPajak = :pokokPajak"),
     @NamedQuery(name = "Pajak.findByTglJatuhTempoPjk", query = "SELECT p FROM Pajak p WHERE p.tglJatuhTempoPjk = :tglJatuhTempoPjk")})
 public class Pajak implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -58,8 +56,6 @@ public class Pajak implements Serializable {
     @JoinColumn(name = "Id_Admin", referencedColumnName = "Id_Admin")
     @ManyToOne(optional = false)
     private Admin idAdmin;
-    @OneToMany(mappedBy = "kodePajak")
-    private Collection<Perpanjang> perpanjangCollection;
 
     public Pajak() {
     }
@@ -122,15 +118,6 @@ public class Pajak implements Serializable {
 
     public void setIdAdmin(Admin idAdmin) {
         this.idAdmin = idAdmin;
-    }
-
-    @XmlTransient
-    public Collection<Perpanjang> getPerpanjangCollection() {
-        return perpanjangCollection;
-    }
-
-    public void setPerpanjangCollection(Collection<Perpanjang> perpanjangCollection) {
-        this.perpanjangCollection = perpanjangCollection;
     }
 
     @Override

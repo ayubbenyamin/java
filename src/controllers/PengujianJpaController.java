@@ -8,16 +8,13 @@ package controllers;
 import controllers.exceptions.NonexistentEntityException;
 import controllers.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Perpanjang;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import model.Pengujian;
 
 /**
@@ -36,29 +33,11 @@ public class PengujianJpaController implements Serializable {
     }
 
     public void create(Pengujian pengujian) throws PreexistingEntityException, Exception {
-        if (pengujian.getPerpanjangCollection() == null) {
-            pengujian.setPerpanjangCollection(new ArrayList<Perpanjang>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Perpanjang> attachedPerpanjangCollection = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionPerpanjangToAttach : pengujian.getPerpanjangCollection()) {
-                perpanjangCollectionPerpanjangToAttach = em.getReference(perpanjangCollectionPerpanjangToAttach.getClass(), perpanjangCollectionPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollection.add(perpanjangCollectionPerpanjangToAttach);
-            }
-            pengujian.setPerpanjangCollection(attachedPerpanjangCollection);
             em.persist(pengujian);
-            for (Perpanjang perpanjangCollectionPerpanjang : pengujian.getPerpanjangCollection()) {
-                Pengujian oldKodePengujianOfPerpanjangCollectionPerpanjang = perpanjangCollectionPerpanjang.getKodePengujian();
-                perpanjangCollectionPerpanjang.setKodePengujian(pengujian);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
-                if (oldKodePengujianOfPerpanjangCollectionPerpanjang != null) {
-                    oldKodePengujianOfPerpanjangCollectionPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionPerpanjang);
-                    oldKodePengujianOfPerpanjangCollectionPerpanjang = em.merge(oldKodePengujianOfPerpanjangCollectionPerpanjang);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findPengujian(pengujian.getKodePengujian()) != null) {
@@ -77,34 +56,7 @@ public class PengujianJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pengujian persistentPengujian = em.find(Pengujian.class, pengujian.getKodePengujian());
-            Collection<Perpanjang> perpanjangCollectionOld = persistentPengujian.getPerpanjangCollection();
-            Collection<Perpanjang> perpanjangCollectionNew = pengujian.getPerpanjangCollection();
-            Collection<Perpanjang> attachedPerpanjangCollectionNew = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionNewPerpanjangToAttach : perpanjangCollectionNew) {
-                perpanjangCollectionNewPerpanjangToAttach = em.getReference(perpanjangCollectionNewPerpanjangToAttach.getClass(), perpanjangCollectionNewPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollectionNew.add(perpanjangCollectionNewPerpanjangToAttach);
-            }
-            perpanjangCollectionNew = attachedPerpanjangCollectionNew;
-            pengujian.setPerpanjangCollection(perpanjangCollectionNew);
             pengujian = em.merge(pengujian);
-            for (Perpanjang perpanjangCollectionOldPerpanjang : perpanjangCollectionOld) {
-                if (!perpanjangCollectionNew.contains(perpanjangCollectionOldPerpanjang)) {
-                    perpanjangCollectionOldPerpanjang.setKodePengujian(null);
-                    perpanjangCollectionOldPerpanjang = em.merge(perpanjangCollectionOldPerpanjang);
-                }
-            }
-            for (Perpanjang perpanjangCollectionNewPerpanjang : perpanjangCollectionNew) {
-                if (!perpanjangCollectionOld.contains(perpanjangCollectionNewPerpanjang)) {
-                    Pengujian oldKodePengujianOfPerpanjangCollectionNewPerpanjang = perpanjangCollectionNewPerpanjang.getKodePengujian();
-                    perpanjangCollectionNewPerpanjang.setKodePengujian(pengujian);
-                    perpanjangCollectionNewPerpanjang = em.merge(perpanjangCollectionNewPerpanjang);
-                    if (oldKodePengujianOfPerpanjangCollectionNewPerpanjang != null && !oldKodePengujianOfPerpanjangCollectionNewPerpanjang.equals(pengujian)) {
-                        oldKodePengujianOfPerpanjangCollectionNewPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionNewPerpanjang);
-                        oldKodePengujianOfPerpanjangCollectionNewPerpanjang = em.merge(oldKodePengujianOfPerpanjangCollectionNewPerpanjang);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -133,11 +85,6 @@ public class PengujianJpaController implements Serializable {
                 pengujian.getKodePengujian();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pengujian with id " + id + " no longer exists.", enfe);
-            }
-            Collection<Perpanjang> perpanjangCollection = pengujian.getPerpanjangCollection();
-            for (Perpanjang perpanjangCollectionPerpanjang : perpanjangCollection) {
-                perpanjangCollectionPerpanjang.setKodePengujian(null);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
             }
             em.remove(pengujian);
             em.getTransaction().commit();

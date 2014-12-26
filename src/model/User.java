@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByNoHpUser", query = "SELECT u FROM User u WHERE u.noHpUser = :noHpUser"),
     @NamedQuery(name = "User.findByAlamatUser", query = "SELECT u FROM User u WHERE u.alamatUser = :alamatUser")})
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,9 +41,6 @@ public class User implements Serializable {
     private String noHpUser;
     @Column(name = "Alamat_User")
     private String alamatUser;
-    @JoinColumn(name = "Kode_SMS_Peringatan", referencedColumnName = "Kode_SMS_Peringatan")
-    @ManyToOne
-    private SMSPeringatan kodeSMSPeringatan;
 
     public User() {
     }
@@ -83,14 +79,6 @@ public class User implements Serializable {
 
     public void setAlamatUser(String alamatUser) {
         this.alamatUser = alamatUser;
-    }
-
-    public SMSPeringatan getKodeSMSPeringatan() {
-        return kodeSMSPeringatan;
-    }
-
-    public void setKodeSMSPeringatan(SMSPeringatan kodeSMSPeringatan) {
-        this.kodeSMSPeringatan = kodeSMSPeringatan;
     }
 
     @Override

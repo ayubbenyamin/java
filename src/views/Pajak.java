@@ -32,7 +32,6 @@ public class Pajak extends javax.swing.JInternalFrame {
         initComponents();
         control = new PajakJpaController(EMF);
         loadData();
-        Global.setEnabledTextField(jPanel1, false);
     }
 
     private void loadData() {
@@ -60,6 +59,8 @@ public class Pajak extends javax.swing.JInternalFrame {
             };
             tableModel.addRow(data);
         }
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
     }
 
     private void setModelData() {
@@ -338,10 +339,9 @@ public class Pajak extends javax.swing.JInternalFrame {
         try {
             control.create(model);
             loadData();
-            Global.setClearTextField(jPanel1);
         } catch (Exception ex) {
             if (control.findPajak(model.getKodePajak()) != null) {
-                JOptionPane.showMessageDialog(rootPane, "Kode Pajak " + model.getKodePajak() + " sudah ada di database.");
+                JOptionPane.showMessageDialog(rootPane, "Kode Pajak " + model.getKodePajak() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -376,7 +376,7 @@ public class Pajak extends javax.swing.JInternalFrame {
         try {
             control.edit(model);
             loadData();
-            JOptionPane.showMessageDialog(rootPane, "Pajak sudah berhasil diedit.");
+            JOptionPane.showMessageDialog(rootPane, "Pajak sudah berhasil diedit.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -396,8 +396,10 @@ public class Pajak extends javax.swing.JInternalFrame {
                 } catch (ParseException ex) {
                 }
             }
-        } else {
             Global.setEnabledTextField(jPanel1);
+            jTextField1.setEnabled(false);
+        } else {
+            Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
     }//GEN-LAST:event_jTable1MouseClicked

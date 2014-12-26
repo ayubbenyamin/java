@@ -8,16 +8,13 @@ package controllers;
 import controllers.exceptions.NonexistentEntityException;
 import controllers.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.Perpanjang;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import model.Pajak;
 
 /**
@@ -36,29 +33,11 @@ public class PajakJpaController implements Serializable {
     }
 
     public void create(Pajak pajak) throws PreexistingEntityException, Exception {
-        if (pajak.getPerpanjangCollection() == null) {
-            pajak.setPerpanjangCollection(new ArrayList<Perpanjang>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Perpanjang> attachedPerpanjangCollection = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionPerpanjangToAttach : pajak.getPerpanjangCollection()) {
-                perpanjangCollectionPerpanjangToAttach = em.getReference(perpanjangCollectionPerpanjangToAttach.getClass(), perpanjangCollectionPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollection.add(perpanjangCollectionPerpanjangToAttach);
-            }
-            pajak.setPerpanjangCollection(attachedPerpanjangCollection);
             em.persist(pajak);
-            for (Perpanjang perpanjangCollectionPerpanjang : pajak.getPerpanjangCollection()) {
-                Pajak oldKodePajakOfPerpanjangCollectionPerpanjang = perpanjangCollectionPerpanjang.getKodePajak();
-                perpanjangCollectionPerpanjang.setKodePajak(pajak);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
-                if (oldKodePajakOfPerpanjangCollectionPerpanjang != null) {
-                    oldKodePajakOfPerpanjangCollectionPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionPerpanjang);
-                    oldKodePajakOfPerpanjangCollectionPerpanjang = em.merge(oldKodePajakOfPerpanjangCollectionPerpanjang);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findPajak(pajak.getKodePajak()) != null) {
@@ -77,34 +56,7 @@ public class PajakJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pajak persistentPajak = em.find(Pajak.class, pajak.getKodePajak());
-            Collection<Perpanjang> perpanjangCollectionOld = persistentPajak.getPerpanjangCollection();
-            Collection<Perpanjang> perpanjangCollectionNew = pajak.getPerpanjangCollection();
-            Collection<Perpanjang> attachedPerpanjangCollectionNew = new ArrayList<Perpanjang>();
-            for (Perpanjang perpanjangCollectionNewPerpanjangToAttach : perpanjangCollectionNew) {
-                perpanjangCollectionNewPerpanjangToAttach = em.getReference(perpanjangCollectionNewPerpanjangToAttach.getClass(), perpanjangCollectionNewPerpanjangToAttach.getKodePerpanjang());
-                attachedPerpanjangCollectionNew.add(perpanjangCollectionNewPerpanjangToAttach);
-            }
-            perpanjangCollectionNew = attachedPerpanjangCollectionNew;
-            pajak.setPerpanjangCollection(perpanjangCollectionNew);
             pajak = em.merge(pajak);
-            for (Perpanjang perpanjangCollectionOldPerpanjang : perpanjangCollectionOld) {
-                if (!perpanjangCollectionNew.contains(perpanjangCollectionOldPerpanjang)) {
-                    perpanjangCollectionOldPerpanjang.setKodePajak(null);
-                    perpanjangCollectionOldPerpanjang = em.merge(perpanjangCollectionOldPerpanjang);
-                }
-            }
-            for (Perpanjang perpanjangCollectionNewPerpanjang : perpanjangCollectionNew) {
-                if (!perpanjangCollectionOld.contains(perpanjangCollectionNewPerpanjang)) {
-                    Pajak oldKodePajakOfPerpanjangCollectionNewPerpanjang = perpanjangCollectionNewPerpanjang.getKodePajak();
-                    perpanjangCollectionNewPerpanjang.setKodePajak(pajak);
-                    perpanjangCollectionNewPerpanjang = em.merge(perpanjangCollectionNewPerpanjang);
-                    if (oldKodePajakOfPerpanjangCollectionNewPerpanjang != null && !oldKodePajakOfPerpanjangCollectionNewPerpanjang.equals(pajak)) {
-                        oldKodePajakOfPerpanjangCollectionNewPerpanjang.getPerpanjangCollection().remove(perpanjangCollectionNewPerpanjang);
-                        oldKodePajakOfPerpanjangCollectionNewPerpanjang = em.merge(oldKodePajakOfPerpanjangCollectionNewPerpanjang);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -133,11 +85,6 @@ public class PajakJpaController implements Serializable {
                 pajak.getKodePajak();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pajak with id " + id + " no longer exists.", enfe);
-            }
-            Collection<Perpanjang> perpanjangCollection = pajak.getPerpanjangCollection();
-            for (Perpanjang perpanjangCollectionPerpanjang : perpanjangCollection) {
-                perpanjangCollectionPerpanjang.setKodePajak(null);
-                perpanjangCollectionPerpanjang = em.merge(perpanjangCollectionPerpanjang);
             }
             em.remove(pajak);
             em.getTransaction().commit();

@@ -247,9 +247,9 @@ public class Utama extends javax.swing.JFrame {
                     .addComponent(jSeparator2)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 862, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1185, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,8 +349,8 @@ public class Utama extends javax.swing.JFrame {
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sms.png"))); // NOI18N
         jMenuItem1.setText("SMS Peringatan");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem1MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem1MousePressed(evt);
             }
         });
         jMenu7.add(jMenuItem1);
@@ -359,8 +359,8 @@ public class Utama extends javax.swing.JFrame {
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/laporan.png"))); // NOI18N
         jMenuItem2.setText("Laporan");
         jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem2MouseClicked(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem2MousePressed(evt);
             }
         });
         jMenu7.add(jMenuItem2);
@@ -555,30 +555,7 @@ public class Utama extends javax.swing.JFrame {
         Global.konfirmasiKeluar(rootPane);
     }//GEN-LAST:event_jMenu10MouseClicked
 
-    private void jMenuItem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MouseClicked
-        // TODO add your handling code here:
-        Smsperingatan smsperingatan1 = new Smsperingatan();
-        if (!formHasCreated(smsperingatan1)) {
-            jDesktopPane1.add(smsperingatan1);
-            smsperingatan1.show();
-        }
-
-        BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
-
-        try {
-            smsperingatan1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
-        }
-
-    }//GEN-LAST:event_jMenuItem1MouseClicked
-
-    private void jMenuItem2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MouseClicked
-        // TODO add your handling code here:
+    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
         Laporan laporan = new Laporan();
         if (!formHasCreated(laporan)) {
             jDesktopPane1.add(laporan);
@@ -596,7 +573,27 @@ public class Utama extends javax.swing.JFrame {
         } catch (PropertyVetoException e) {
             //maximize otomatis
         }
-    }//GEN-LAST:event_jMenuItem2MouseClicked
+    }//GEN-LAST:event_jMenuItem2MousePressed
+
+    private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
+        Smsperingatan smsperingatan1 = new Smsperingatan();
+        if (!formHasCreated(smsperingatan1)) {
+            jDesktopPane1.add(smsperingatan1);
+            smsperingatan1.show();
+        }
+
+        BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
+        Container north = (Container) x.getNorthPane();
+        north.remove(0);
+        north.validate();
+        north.repaint();
+
+        try {
+            smsperingatan1.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            //maximize otomatis
+        }
+    }//GEN-LAST:event_jMenuItem1MousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
