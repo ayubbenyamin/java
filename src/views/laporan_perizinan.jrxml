@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7708ff98-79e8-4c71-adee-1309695ca57e">
+    <property name="ireport.zoom" value="1.0"/>
+    <property name="ireport.x" value="104"/>
+    <property name="ireport.y" value="0"/>
+    <style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+    <style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+    <style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+    <style name="Detail" fontName="Arial" fontSize="12"/>
+    <style name="Row" mode="Transparent">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+            <style backcolor="#E6DAC3"/>
+        </conditionalStyle>
+    </style>
+    <queryString>
+		<![CDATA[SELECT
+     perizinan.`Kode_Perizinan` AS perizinan_Kode_Perizinan,
+     perizinan.`No_Perizinan` AS perizinan_No_Perizinan,
+     perizinan.`Jenis_Perizinan` AS perizinan_Jenis_Perizinan,
+     perizinan.`Kegunaan_Perizinan` AS perizinan_Kegunaan_Perizinan,
+     perizinan.`Sumber_Perizinan` AS perizinan_Sumber_Perizinan,
+     perizinan.`Tgl_Jatuh_Tempo_Przn` AS perizinan_Tgl_Jatuh_Tempo_Przn
+FROM
+     `perizinan` perizinan
+WHERE
+     Tgl_Jatuh_Tempo_Przn <= LAST_DAY(DATE_ADD(NOW(),INTERVAL 1 MONTH))]]>
+    </queryString>
+    <field name="perizinan_Kode_Perizinan" class="java.lang.String"/>
+    <field name="perizinan_No_Perizinan" class="java.lang.String"/>
+    <field name="perizinan_Jenis_Perizinan" class="java.lang.String"/>
+    <field name="perizinan_Kegunaan_Perizinan" class="java.lang.String"/>
+    <field name="perizinan_Sumber_Perizinan" class="java.lang.String"/>
+    <field name="perizinan_Tgl_Jatuh_Tempo_Przn" class="java.sql.Timestamp"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="136" splitType="Stretch">
+            <staticText>
+                <reportElement style="Title" x="1" y="0" width="801" height="62" uuid="82f8a953-15ac-40ed-a84a-29c60fdc37e6"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="28" pdfFontName="Times-Roman"/>
+                </textElement>
+                <text><![CDATA[Laporan Perizinan]]></text>
+            </staticText>
+        </band>
+    </title>
+    <pageHeader>
+        <band splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="16" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="3d39d04d-691f-4f12-801a-45f880c0bdba"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+            <staticText>
+                <reportElement style="Column header" x="0" y="0" width="92" height="15" forecolor="#736343" uuid="6da239b6-9ae6-4581-98e7-d2e1e1afb11f"/>
+                <text><![CDATA[Kode Perizinan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="92" y="0" width="92" height="15" forecolor="#736343" uuid="3f85a0fd-6d45-4e92-b173-f1fd7fad8709"/>
+                <text><![CDATA[No. Perizinan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="248" y="0" width="92" height="15" forecolor="#736343" uuid="b18d7c91-cd19-475b-a26a-418c7c8662a9"/>
+                <text><![CDATA[Jenis Perizinan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="409" y="1" width="92" height="15" forecolor="#736343" uuid="a726233b-b513-405f-adf9-e76f8adb0352"/>
+                <text><![CDATA[Kegunaan Perizinan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="555" y="0" width="92" height="15" forecolor="#736343" uuid="9df89cef-69e3-403f-b8ee-e6f686d44bd8"/>
+                <text><![CDATA[Sumber Perizinan]]></text>
+            </staticText>
+            <staticText>
+                <reportElement style="Column header" x="694" y="0" width="108" height="15" forecolor="#736343" uuid="5b837088-2119-4265-91fa-9a9d9e26ce00"/>
+                <text><![CDATA[Tgl. Jatuh Tempo]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="18" splitType="Stretch">
+            <frame>
+                <reportElement style="Row" mode="Opaque" x="1" y="0" width="802" height="16" uuid="d0a8a38f-f370-42c6-9567-37ea388caf49"/>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="b435ca00-ad37-4842-beaa-491367f9b499"/>
+                    <textFieldExpression><![CDATA[$F{perizinan_Kode_Perizinan}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="92" y="1" width="92" height="15" uuid="e5037468-61af-48ee-87a1-7423a9c6a025"/>
+                    <textFieldExpression><![CDATA[$F{perizinan_No_Perizinan}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="409" y="0" width="92" height="15" uuid="2b90b581-1bc5-4994-81b8-e60f3dc0c838"/>
+                    <textFieldExpression><![CDATA[$F{perizinan_Jenis_Perizinan}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="248" y="0" width="92" height="15" uuid="2aab45ef-d7f4-46ff-94bd-527a3da6a52c"/>
+                    <textFieldExpression><![CDATA[$F{perizinan_Kegunaan_Perizinan}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="555" y="0" width="92" height="15" uuid="78acf87e-df23-4719-aa67-b21b5835f24d"/>
+                    <textFieldExpression><![CDATA[$F{perizinan_Sumber_Perizinan}]]></textFieldExpression>
+                </textField>
+                <textField isStretchWithOverflow="true">
+                    <reportElement style="Detail" x="693" y="1" width="108" height="15" uuid="15fb24d5-73b0-4e84-bfe1-fd6bb124eda5"/>
+                    <textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy").format($F{perizinan_Tgl_Jatuh_Tempo_Przn})]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch">
+            <line>
+                <reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="036bee8a-3553-4560-af45-32726bbfc701"/>
+                <graphicElement>
+                    <pen lineWidth="0.5" lineColor="#999999"/>
+                </graphicElement>
+            </line>
+        </band>
+    </columnFooter>
+    <pageFooter>
+        <band height="25" splitType="Stretch">
+            <frame>
+                <reportElement mode="Opaque" x="-21" y="1" width="823" height="24" forecolor="#D0B48E" backcolor="#F2EBDF" uuid="1927c5a3-5c9c-44c3-9d54-1c949fa389f7"/>
+                <textField evaluationTime="Report">
+                    <reportElement style="Column header" x="783" y="0" width="40" height="20" forecolor="#736343" uuid="1c1e325d-f865-4757-97bb-7c91156b2b8e"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="10" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+                </textField>
+                <textField>
+                    <reportElement style="Column header" x="703" y="0" width="80" height="20" forecolor="#736343" uuid="50607fe1-9eed-41c5-bbea-ba3689aa9536"/>
+                    <textElement textAlignment="Right" verticalAlignment="Middle">
+                        <font size="10" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Hal "+$V{PAGE_NUMBER}+" dari"]]></textFieldExpression>
+                </textField>
+                <textField pattern="EEEEE dd MMMMM yyyy">
+                    <reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#736343" uuid="f5f1a63b-5aec-48a7-83b7-250beec5cde5"/>
+                    <textElement verticalAlignment="Middle">
+                        <font size="10" isBold="false"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA["Tanggal " + new SimpleDateFormat("dd-MM-yyyy").format(new java.util.Date())]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>
