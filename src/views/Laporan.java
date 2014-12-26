@@ -5,6 +5,15 @@
  */
 package views;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+import sppbe.Config;
+
 /**
  *
  * @author Gerardo
@@ -16,6 +25,117 @@ public class Laporan extends javax.swing.JInternalFrame {
      */
     public Laporan() {
         initComponents();
+        Object row_pajak[] = {"Kode Pajak", "No NPWP", "Jenis Pajak", "Sumber Pajak", "Pokok Pajak", "Tanggal Jatuh Tempo"};
+        DefaultTableModel tableModelPajak = new DefaultTableModel(null, row_pajak) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        jTable1.setModel(tableModelPajak);
+
+        Object row_perizinan[] = {"Kode Perizinan", "No Perizinan", "Jenis Perizinan", "Kegunaan Perizinan", "Sumber Perizinan", "Tanggal Jatuh Tempo"};
+        DefaultTableModel tableModelPerizinan = new DefaultTableModel(null, row_perizinan) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        jTable2.setModel(tableModelPerizinan);
+
+        Object row_pengujian[] = {"Kode Pengujian", "No Pengujian", "Jenis Pengujian", "Metode Pengujian", "Sumber Pengujian", "Tanggal Jatuh Tempo"};
+        DefaultTableModel tableModelPengujian = new DefaultTableModel(null, row_pengujian) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        jTable3.setModel(tableModelPengujian);
+
+        Object row_sertifikasi[] = {"Kode Sertifikasi", "No Sertifikasi", "Jenis Sertifikasi", "Sumber Sertifikasi", "Tanggal Jatuh Tempo"};
+        DefaultTableModel tableModelSertifikasi = new DefaultTableModel(null, row_sertifikasi) {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+
+        };
+        jTable4.setModel(tableModelSertifikasi);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
+
+            Statement statement = conn.createStatement();
+
+            String sql_pajak = "SELECT * FROM Pajak WHERE Tgl_Jatuh_Tempo_Pjk <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_pajak = statement.executeQuery(sql_pajak);
+
+            while (result_pajak.next()) {
+                String[] data = {
+                    result_pajak.getString(1),
+                    result_pajak.getString(3),
+                    result_pajak.getString(4),
+                    result_pajak.getString(5),
+                    result_pajak.getString(6),
+                    sdf.format(result_pajak.getDate(7))
+                };
+                tableModelPajak.addRow(data);
+            }
+
+            String sql_perizinan = "SELECT * FROM Perizinan WHERE Tgl_Jatuh_Tempo_Przn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_perizinan = statement.executeQuery(sql_perizinan);
+
+            while (result_perizinan.next()) {
+                String[] data = {
+                    result_perizinan.getString(1),
+                    result_perizinan.getString(3),
+                    result_perizinan.getString(4),
+                    result_perizinan.getString(5),
+                    result_perizinan.getString(6),
+                    sdf.format(result_perizinan.getDate(7))
+                };
+                tableModelPerizinan.addRow(data);
+            }
+
+            String sql_pengujian = "SELECT * FROM Pengujian WHERE Tgl_Jatuh_Tempo_Pgjn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_pengujian = statement.executeQuery(sql_pengujian);
+
+            while (result_pengujian.next()) {
+                String[] data = {
+                    result_pengujian.getString(1),
+                    result_pengujian.getString(3),
+                    result_pengujian.getString(4),
+                    result_pengujian.getString(5),
+                    result_pengujian.getString(7),
+                    sdf.format(result_pengujian.getDate(6))
+                };
+                tableModelPengujian.addRow(data);
+            }
+
+            String sql_sertifikasi = "SELECT * FROM Sertifikasi WHERE Tgl_Jatuh_Tempo_Srks <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH))";
+            ResultSet result_sertifikasi = statement.executeQuery(sql_sertifikasi);
+
+            while (result_sertifikasi.next()) {
+                String[] data = {
+                    result_sertifikasi.getString(1),
+                    result_sertifikasi.getString(3),
+                    result_sertifikasi.getString(4),
+                    result_sertifikasi.getString(5),
+                    sdf.format(result_sertifikasi.getDate(6))
+                };
+                tableModelSertifikasi.addRow(data);
+            }
+
+        } catch (SQLException ex) {
+        }
     }
 
     /**
