@@ -440,7 +440,10 @@ public class Admin extends javax.swing.JInternalFrame {
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         char c = evt.getKeyChar();
-
+        if (jTextField5.getText().length() >= 12) {
+            getToolkit().beep();
+            evt.consume();
+        }
         if (!(Character.isDigit(c)
                 || c == KeyEvent.VK_BACK_SPACE
                 || c == KeyEvent.VK_DELETE)) {
