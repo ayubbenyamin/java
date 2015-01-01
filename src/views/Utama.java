@@ -433,7 +433,7 @@ public class Utama extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(23, 23, 23)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap(213, Short.MAX_VALUE))
         );
