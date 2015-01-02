@@ -5,7 +5,6 @@
  */
 package views;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,6 +13,9 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import sppbe.Config;
 
 /**
@@ -379,13 +381,10 @@ public class Laporan extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
-                File file = new File("src/views/laporan_pajak.jrxml");
-                //JasperDesign jasperDesign = JRXmlLoader.load(file);
-                //HashMap param = new HashMap();
-                //param.clear();
-                //JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, conn);
-                //JasperViewer.viewReport(jasperPrint, false);
+                HashMap param = new HashMap();
+                param.clear();
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pajak.jasper", param, conn);
+                JasperViewer.viewReport(jasperPrint, false);
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -395,13 +394,10 @@ public class Laporan extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
-                File file = new File("src/views/laporan_perizinan.jrxml");
-                //JasperDesign jasperDesign = JRXmlLoader.load(file);
-                //HashMap param = new HashMap();
-                //param.clear();
-                //JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, conn);
-                //JasperViewer.viewReport(jasperPrint, false);
+                HashMap param = new HashMap();
+                param.clear();
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_perizinan.jasper", param, conn);
+                JasperViewer.viewReport(jasperPrint, false);
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -411,13 +407,10 @@ public class Laporan extends javax.swing.JInternalFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
-                File file = new File("src/views/laporan_pengujian.jrxml");
-                //JasperDesign jasperDesign = JRXmlLoader.load(file);
-                //HashMap param = new HashMap();
-                //param.clear();
-                //JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, conn);
-                //JasperViewer.viewReport(jasperPrint, false);
+                HashMap param = new HashMap();
+                param.clear();
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pengujian.jasper", param, conn);
+                JasperViewer.viewReport(jasperPrint, false);
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -427,13 +420,10 @@ public class Laporan extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
-                File file = new File("src/views/laporan_sertifikasi.jrxml");
-                //JasperDesign jasperDesign = JRXmlLoader.load(file);
                 HashMap param = new HashMap();
                 param.clear();
-                //JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                //JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param, conn);
-                //JasperViewer.viewReport(jasperPrint, false);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_sertifikasi.jasper", param, conn);
+                JasperViewer.viewReport(jasperPrint, false);
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
