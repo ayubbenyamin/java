@@ -487,7 +487,6 @@ public class Admin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        // TODO add your handling code here:
         if (jTextField1.getText().length() >= 6) {
             getToolkit().beep();
             evt.consume();
@@ -495,7 +494,6 @@ public class Admin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-        // TODO add your handling code here:
         if (jTextField2.getText().length() >= 40) {
             getToolkit().beep();
             evt.consume();
@@ -518,7 +516,6 @@ public class Admin extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
-        // TODO add your handling code here:
         if (jTextArea1.getText().length() >= 50) {
             getToolkit().beep();
             evt.consume();
