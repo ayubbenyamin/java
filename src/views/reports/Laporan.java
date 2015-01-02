@@ -397,7 +397,7 @@ public class Laporan extends javax.swing.JInternalFrame {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
                 HashMap param = new HashMap();
                 param.clear();
-                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pajak.jasper", param, conn);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/reports/laporan_pajak.jasper", param, conn);
                 cetak(jasperPrint, "Cetak Laporan Pajak");
             } catch (SQLException ex) {
             }
@@ -410,7 +410,7 @@ public class Laporan extends javax.swing.JInternalFrame {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
                 HashMap param = new HashMap();
                 param.clear();
-                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_perizinan.jasper", param, conn);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/reports/laporan_perizinan.jasper", param, conn);
                 cetak(jasperPrint, "Cetak Laporan Perizinan");
             } catch (SQLException ex) {
             }
@@ -423,7 +423,7 @@ public class Laporan extends javax.swing.JInternalFrame {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
                 HashMap param = new HashMap();
                 param.clear();
-                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pengujian.jasper", param, conn);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/reports/laporan_pengujian.jasper", param, conn);
                 cetak(jasperPrint, "Cetak Laporan Pengujian");
             } catch (SQLException ex) {
             }
@@ -436,7 +436,7 @@ public class Laporan extends javax.swing.JInternalFrame {
             try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
                 HashMap param = new HashMap();
                 param.clear();
-                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_sertifikasi.jasper", param, conn);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/reports/laporan_sertifikasi.jasper", param, conn);
                 cetak(jasperPrint, "Cetak Laporan Sertifikasi");
             } catch (SQLException ex) {
             }
