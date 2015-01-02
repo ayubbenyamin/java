@@ -5,6 +5,7 @@
  */
 package views;
 
+import views.reports.Laporan;
 import java.awt.AWTException;
 import java.awt.Container;
 import java.awt.Image;
