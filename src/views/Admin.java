@@ -259,18 +259,8 @@ public class Admin extends javax.swing.JInternalFrame {
         });
 
         jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField1KeyTyped(evt);
-            }
-        });
 
         jPasswordField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jPasswordField2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField2KeyTyped(evt);
-            }
-        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText(":");
@@ -424,22 +414,6 @@ public class Admin extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPasswordField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField2KeyTyped
-        // TODO add your handling code here:
-        if (jPasswordField2.getText().length() >= 32) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jPasswordField2KeyTyped
-
-    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
-        // TODO add your handling code here:
-        if (jPasswordField1.getText().length() >= 32) {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_jPasswordField1KeyTyped
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (!checkPasswordMatch()) {
