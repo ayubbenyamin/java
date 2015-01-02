@@ -12,10 +12,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.view.JRSaveContributor;
+import net.sf.jasperreports.view.JRViewer;
+import net.sf.jasperreports.view.save.JRDocxSaveContributor;
+import net.sf.jasperreports.view.save.JRPdfSaveContributor;
 import sppbe.Config;
 
 /**
@@ -140,6 +144,16 @@ public class Laporan extends javax.swing.JInternalFrame {
 
         } catch (SQLException ex) {
         }
+    }
+
+    private void cetak(JasperPrint jasperPrint, String judul) {
+        JRViewer jv = new JRViewer(jasperPrint);
+        jv.setSaveContributors(new JRSaveContributor[]{
+            new JRPdfSaveContributor(Locale.getDefault(), null),
+            new JRDocxSaveContributor(Locale.getDefault(), null)
+        });
+
+        CetakLaporan.cetak(jv, judul);
     }
 
     /**
@@ -384,7 +398,7 @@ public class Laporan extends javax.swing.JInternalFrame {
                 HashMap param = new HashMap();
                 param.clear();
                 JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pajak.jasper", param, conn);
-                JasperViewer.viewReport(jasperPrint, false);
+                cetak(jasperPrint, "Cetak Laporan Pajak");
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -397,7 +411,7 @@ public class Laporan extends javax.swing.JInternalFrame {
                 HashMap param = new HashMap();
                 param.clear();
                 JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_perizinan.jasper", param, conn);
-                JasperViewer.viewReport(jasperPrint, false);
+                cetak(jasperPrint, "Cetak Laporan Perizinan");
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -410,7 +424,7 @@ public class Laporan extends javax.swing.JInternalFrame {
                 HashMap param = new HashMap();
                 param.clear();
                 JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_pengujian.jasper", param, conn);
-                JasperViewer.viewReport(jasperPrint, false);
+                cetak(jasperPrint, "Cetak Laporan Pengujian");
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
@@ -423,7 +437,7 @@ public class Laporan extends javax.swing.JInternalFrame {
                 HashMap param = new HashMap();
                 param.clear();
                 JasperPrint jasperPrint = JasperFillManager.fillReport("src/views/laporan_sertifikasi.jasper", param, conn);
-                JasperViewer.viewReport(jasperPrint, false);
+                cetak(jasperPrint, "Cetak Laporan Sertifikasi");
             } catch (SQLException ex) {
             }
         } catch (Exception e) {
