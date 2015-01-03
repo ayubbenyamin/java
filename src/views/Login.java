@@ -54,7 +54,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         setIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
-
         jPanel1 = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
