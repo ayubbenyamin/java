@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 26 Des 2014 pada 21.34
+-- Generation Time: 03 Jan 2015 pada 22.18
 -- Versi Server: 5.6.21
 -- PHP Version: 5.4.30
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sppbe`
 --
+CREATE DATABASE IF NOT EXISTS `sppbe` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `sppbe`;
 
 -- --------------------------------------------------------
 
@@ -39,8 +41,7 @@ CREATE TABLE IF NOT EXISTS `Admin` (
 --
 
 INSERT INTO `Admin` (`Id_Admin`, `Password`, `Nama_Admin`, `Alamat_Admin`, `No_Hp_Admin`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 'Yogi', 'Yogya', '08565656566'),
-('admini', 'wqwqw', 'Yogi', 'Yogya', '08565656566');
+('admin', '21232f297a57a5a743894a0e4a801fc3', 'Yogi', 'Yogya', '08565656566');
 
 -- --------------------------------------------------------
 
@@ -142,38 +143,8 @@ CREATE TABLE IF NOT EXISTS `outbox` (
   `SenderID` varchar(255) DEFAULT NULL,
   `SendingTimeOut` timestamp NULL DEFAULT '0000-00-00 00:00:00',
   `DeliveryReport` enum('default','yes','no') DEFAULT 'default',
-  `CreatorID` text
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `outbox`
---
-
-INSERT INTO `outbox` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `SendBefore`, `SendAfter`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `Class`, `TextDecoded`, `ID`, `MultiPart`, `RelativeValidity`, `SenderID`, `SendingTimeOut`, `DeliveryReport`, `CreatorID`) VALUES
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, pajak dengan kode dfdf akan memasuki masa jatuh tempo pada tanggal 28-11-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 5, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode dfdf akan memasuki masa jatuh tempo pada tanggal 28-11-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 6, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, pajak dengan kode dfdf akan memasuki masa jatuh tempo pada tanggal 28-11-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 7, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode dfdf akan memasuki masa jatuh tempo pada tanggal 28-11-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 8, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, pajak dengan kode qfd akan memasuki masa jatuh tempo pada tanggal 27-01-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 9, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode qfd akan memasuki masa jatuh tempo pada tanggal 27-01-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 10, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, pajak dengan kode qfd akan memasuki masa jatuh tempo pada tanggal 27-01-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 11, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode qfd akan memasuki masa jatuh tempo pada tanggal 27-01-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 12, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, pajak dengan kode qw akan memasuki masa jatuh tempo pada tanggal 27-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 13, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode qw akan memasuki masa jatuh tempo pada tanggal 27-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 14, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, pajak dengan kode qw akan memasuki masa jatuh tempo pada tanggal 27-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 15, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pajak dengan kode qw akan memasuki masa jatuh tempo pada tanggal 27-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 16, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, pengujian dengan kode ddd akan memasuki masa jatuh tempo pada tanggal 26-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 17, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pengujian dengan kode ddd akan memasuki masa jatuh tempo pada tanggal 26-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 18, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, pengujian dengan kode ddd akan memasuki masa jatuh tempo pada tanggal 26-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 19, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, pengujian dengan kode ddd akan memasuki masa jatuh tempo pada tanggal 26-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 20, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, perizinan dengan kode 122 akan memasuki masa jatuh tempo pada tanggal 01-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 21, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, perizinan dengan kode 122 akan memasuki masa jatuh tempo pada tanggal 01-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 22, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, perizinan dengan kode 122 akan memasuki masa jatuh tempo pada tanggal 01-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 23, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, perizinan dengan kode 122 akan memasuki masa jatuh tempo pada tanggal 01-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 24, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, 'as1212s', 'Default_No_Compression', NULL, -1, 'YTH User assd, sertifikasi dengan kode 1212 akan memasuki masa jatuh tempo pada tanggal 24-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 25, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, sertifikasi dengan kode 1212 akan memasuki masa jatuh tempo pada tanggal 24-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 26, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345xxd', 'Default_No_Compression', NULL, -1, 'YTH User Ali Babaxxd, sertifikasi dengan kode 1212 akan memasuki masa jatuh tempo pada tanggal 24-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 27, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL),
-('2014-12-26 10:11:25', '2014-12-26 10:11:25', '2014-12-26 10:11:25', '23:59:59', '00:00:00', NULL, '12345', 'Default_No_Compression', NULL, -1, 'YTH User Ali Baba, sertifikasi dengan kode 1212 akan memasuki masa jatuh tempo pada tanggal 24-12-2014, mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE', 28, 'false', -1, NULL, '2014-12-26 10:11:25', 'default', NULL);
+  `CreatorID` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Trigger `outbox`
@@ -213,29 +184,29 @@ CREATE TABLE IF NOT EXISTS `outbox_multipart` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pajak`
+-- Struktur dari tabel `Pajak`
 --
 
-CREATE TABLE IF NOT EXISTS `pajak` (
+CREATE TABLE IF NOT EXISTS `Pajak` (
   `Kode_Pajak` varchar(6) NOT NULL,
   `Id_Admin` varchar(6) NOT NULL,
   `No_Npwp` varchar(18) DEFAULT NULL,
   `Jenis_Pajak` varchar(20) DEFAULT NULL,
-  `Sumber_Pajak` varchar(40) DEFAULT NULL,
+  `Sumber_Pajak` varchar(100) DEFAULT NULL,
   `Pokok_Pajak` varchar(20) DEFAULT NULL,
   `Tgl_Jatuh_Tempo_Pjk` datetime DEFAULT NULL,
   `sms_terkirim` varchar(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `pajak`
+-- Dumping data untuk tabel `Pajak`
 --
 
-INSERT INTO `pajak` (`Kode_Pajak`, `Id_Admin`, `No_Npwp`, `Jenis_Pajak`, `Sumber_Pajak`, `Pokok_Pajak`, `Tgl_Jatuh_Tempo_Pjk`, `sms_terkirim`) VALUES
-('dfdf', 'admini', 'qwkk', 'qw', 'qwqw', 'qw', '2014-11-28 00:00:00', '1'),
-('qf', 'admini', 'qwkk', 'qw', 'qwqw', 'qw', '2015-12-27 00:00:00', '0'),
-('qfd', 'admini', 'qwkk', 'qw', 'qwqw', 'qw', '2014-01-27 00:00:00', '1'),
-('qw', 'admini', 'qwkk', 'qw', 'qwqw', 'qw', '2014-12-27 00:00:00', '1');
+INSERT INTO `Pajak` (`Kode_Pajak`, `Id_Admin`, `No_Npwp`, `Jenis_Pajak`, `Sumber_Pajak`, `Pokok_Pajak`, `Tgl_Jatuh_Tempo_Pjk`, `sms_terkirim`) VALUES
+('oo1E', 'admin', 'qwkk', 'qw', 'qwqw', 'qw', '2014-11-28 00:00:00', '0'),
+('qf', 'admin', 'qwkk', 'qw', 'qwqw', 'qw', '2015-12-27 00:00:00', '0'),
+('qfd', 'admin', 'qwkk', 'qw', 'qwqw', 'qw', '2014-01-27 00:00:00', '1'),
+('qw', 'admin', 'qwkk', 'qw', 'qwqw', 'qw', '2014-12-27 00:00:00', '1');
 
 -- --------------------------------------------------------
 
@@ -264,50 +235,50 @@ CREATE TABLE IF NOT EXISTS `pbk_groups` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengujian`
+-- Struktur dari tabel `Pengujian`
 --
 
-CREATE TABLE IF NOT EXISTS `pengujian` (
+CREATE TABLE IF NOT EXISTS `Pengujian` (
   `Kode_Pengujian` varchar(6) NOT NULL,
   `Id_Admin` varchar(6) NOT NULL,
   `No_Pengujian` varchar(30) DEFAULT NULL,
   `Jenis_Pengujian` varchar(30) DEFAULT NULL,
   `Metode` varchar(30) DEFAULT NULL,
   `Tgl_Jatuh_Tempo_Pgjn` datetime DEFAULT NULL,
-  `Sumber_Pengujian` varchar(40) DEFAULT NULL,
+  `Sumber_Pengujian` varchar(100) DEFAULT NULL,
   `sms_terkirim` varchar(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `pengujian`
+-- Dumping data untuk tabel `Pengujian`
 --
 
-INSERT INTO `pengujian` (`Kode_Pengujian`, `Id_Admin`, `No_Pengujian`, `Jenis_Pengujian`, `Metode`, `Tgl_Jatuh_Tempo_Pgjn`, `Sumber_Pengujian`, `sms_terkirim`) VALUES
+INSERT INTO `Pengujian` (`Kode_Pengujian`, `Id_Admin`, `No_Pengujian`, `Jenis_Pengujian`, `Metode`, `Tgl_Jatuh_Tempo_Pgjn`, `Sumber_Pengujian`, `sms_terkirim`) VALUES
 ('ddd', 'admin', 'ddd', 'ddd', 'dsds', '2014-12-26 13:50:02', 'sdsds', '1'),
 ('qw', 'admin', 'qw', 'qw', 'qw', '2015-12-02 00:00:00', 'qwqw', '0');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `perizinan`
+-- Struktur dari tabel `Perizinan`
 --
 
-CREATE TABLE IF NOT EXISTS `perizinan` (
+CREATE TABLE IF NOT EXISTS `Perizinan` (
   `Kode_Perizinan` varchar(6) NOT NULL,
   `Id_Admin` varchar(6) NOT NULL,
   `No_Perizinan` varchar(30) DEFAULT NULL,
   `Jenis_Perizinan` varchar(20) DEFAULT NULL,
   `Kegunaan_Perizinan` varchar(40) DEFAULT NULL,
-  `Sumber_Perizinan` varchar(40) DEFAULT NULL,
+  `Sumber_Perizinan` varchar(100) DEFAULT NULL,
   `Tgl_Jatuh_Tempo_Przn` datetime DEFAULT NULL,
   `sms_terkirim` varchar(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `perizinan`
+-- Dumping data untuk tabel `Perizinan`
 --
 
-INSERT INTO `perizinan` (`Kode_Perizinan`, `Id_Admin`, `No_Perizinan`, `Jenis_Perizinan`, `Kegunaan_Perizinan`, `Sumber_Perizinan`, `Tgl_Jatuh_Tempo_Przn`, `sms_terkirim`) VALUES
+INSERT INTO `Perizinan` (`Kode_Perizinan`, `Id_Admin`, `No_Perizinan`, `Jenis_Perizinan`, `Kegunaan_Perizinan`, `Sumber_Perizinan`, `Tgl_Jatuh_Tempo_Przn`, `sms_terkirim`) VALUES
 ('122', 'admin', '12', '12', '12', '12', '2014-12-01 00:00:00', '1');
 
 -- --------------------------------------------------------
@@ -394,15 +365,6 @@ CREATE TABLE IF NOT EXISTS `sentitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data untuk tabel `sentitems`
---
-
-INSERT INTO `sentitems` (`UpdatedInDB`, `InsertIntoDB`, `SendingDateTime`, `DeliveryDateTime`, `Text`, `DestinationNumber`, `Coding`, `UDH`, `SMSCNumber`, `Class`, `TextDecoded`, `ID`, `SenderID`, `SequencePosition`, `Status`, `StatusError`, `TPMR`, `RelativeValidity`, `CreatorID`) VALUES
-('2014-12-26 07:36:36', '2014-12-26 03:16:24', '2014-12-26 03:16:24', NULL, 'a', '12345', 'Default_No_Compression', 'b', '', -1, 'hallo tes', 5, 'c', 1, 'DeliveryFailed', -1, -1, -1, 'd'),
-('2014-12-26 03:22:27', '2014-12-26 03:16:24', '2014-12-26 03:16:24', NULL, 'a', '12345', 'Default_No_Compression', 'b', '', -1, 'hallo tes', 6, 'c', 1, 'DeliveryOK', -1, -1, -1, 'd'),
-('2014-12-26 07:35:50', '2014-12-26 03:16:24', '2014-12-26 03:16:24', NULL, 'a', '12345', 'Default_No_Compression', 'b', '', -1, 'hallo tes', 7, 'c', 1, 'DeliveryPending', -1, -1, -1, 'd');
-
---
 -- Trigger `sentitems`
 --
 DELIMITER //
@@ -449,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `Sertifikasi` (
   `Id_Admin` varchar(6) NOT NULL,
   `No_Sertifikasi` varchar(30) DEFAULT NULL,
   `Jenis_Sertifikasi` varchar(30) DEFAULT NULL,
-  `Sumber_Sertifikasi` varchar(40) DEFAULT NULL,
+  `Sumber_Sertifikasi` varchar(100) DEFAULT NULL,
   `Tgl_Jatuh_Tempo_Srks` datetime DEFAULT NULL,
   `sms_terkirim` varchar(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -471,19 +433,11 @@ CREATE TABLE IF NOT EXISTS `SMSPeringatan` (
   `Kode_SMS_Peringatan` varchar(6) NOT NULL,
   `Kode_Perpanjang` varchar(6) DEFAULT NULL,
   `Berita_Terkirim` varchar(40) DEFAULT 'Tunda',
-  `Tgl_Pengiriman` datetime DEFAULT CURRENT_TIMESTAMP,
+  `Tgl_Pengiriman` datetime DEFAULT NULL,
   `Isi_SMS` text,
   `Nama` varchar(40) DEFAULT NULL,
   `No_Hp` decimal(12,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data untuk tabel `SMSPeringatan`
---
-
-INSERT INTO `SMSPeringatan` (`Kode_SMS_Peringatan`, `Kode_Perpanjang`, `Berita_Terkirim`, `Tgl_Pengiriman`, `Isi_SMS`, `Nama`, `No_Hp`) VALUES
-('6', NULL, 'DeliveryOK', '2014-12-26 11:48:00', 'hallo tes', 'Ali Baba', '12345'),
-('7', NULL, 'DeliveryPending', '2014-12-26 14:34:59', 'hallo tes', 'Ali Baba', '12345');
 
 -- --------------------------------------------------------
 
@@ -504,10 +458,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 --
 
 INSERT INTO `User` (`Id_User`, `Kode_SMS_Peringatan`, `Nama_User`, `No_Hp_User`, `Alamat_User`) VALUES
-('asas', NULL, 'assd', 'as1212s', 'asasasas12s'),
-('baba', NULL, 'Ali Baba', '12345', 'Jl. Macan Kembang No. 40H'),
-('babam', NULL, 'Ali Babaxxd', '12345xxd', 'Jl. Macan Kembang No. 40H\ns'),
-('babas', NULL, 'Ali Baba', '12345', 'Jl. Macan Kembang No. 40H');
+('baba', NULL, 'Ali Baba', '085654519941', 'Jl. Macan Kembang No. 40H');
 
 --
 -- Indexes for dumped tables
@@ -544,9 +495,9 @@ ALTER TABLE `outbox_multipart`
  ADD PRIMARY KEY (`ID`,`SequencePosition`);
 
 --
--- Indexes for table `pajak`
+-- Indexes for table `Pajak`
 --
-ALTER TABLE `pajak`
+ALTER TABLE `Pajak`
  ADD PRIMARY KEY (`Kode_Pajak`), ADD KEY `Admin_Pajak` (`Id_Admin`);
 
 --
@@ -562,15 +513,15 @@ ALTER TABLE `pbk_groups`
  ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `pengujian`
+-- Indexes for table `Pengujian`
 --
-ALTER TABLE `pengujian`
+ALTER TABLE `Pengujian`
  ADD PRIMARY KEY (`Kode_Pengujian`), ADD KEY `Admin_Pengujian` (`Id_Admin`);
 
 --
--- Indexes for table `perizinan`
+-- Indexes for table `Perizinan`
 --
-ALTER TABLE `perizinan`
+ALTER TABLE `Perizinan`
  ADD PRIMARY KEY (`Kode_Perizinan`), ADD KEY `Admin_Perizinan` (`Id_Admin`);
 
 --
@@ -622,7 +573,7 @@ MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `outbox`
 --
 ALTER TABLE `outbox`
-MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+MODIFY `ID` int(10) unsigned NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `pbk`
 --
@@ -644,24 +595,6 @@ ALTER TABLE `Laporan`
 ADD CONSTRAINT `Perpanjang_Laporan` FOREIGN KEY (`Kode_Perpanjang`) REFERENCES `perpanjang` (`Kode_Perpanjang`);
 
 --
--- Ketidakleluasaan untuk tabel `pajak`
---
-ALTER TABLE `pajak`
-ADD CONSTRAINT `Admin_Pajak` FOREIGN KEY (`Id_Admin`) REFERENCES `Admin` (`Id_Admin`);
-
---
--- Ketidakleluasaan untuk tabel `pengujian`
---
-ALTER TABLE `pengujian`
-ADD CONSTRAINT `Admin_Pengujian` FOREIGN KEY (`Id_Admin`) REFERENCES `Admin` (`Id_Admin`);
-
---
--- Ketidakleluasaan untuk tabel `perizinan`
---
-ALTER TABLE `perizinan`
-ADD CONSTRAINT `Admin_Perizinan` FOREIGN KEY (`Id_Admin`) REFERENCES `Admin` (`Id_Admin`);
-
---
 -- Ketidakleluasaan untuk tabel `Perpanjang`
 --
 ALTER TABLE `Perpanjang`
@@ -670,12 +603,6 @@ ADD CONSTRAINT `Pajak_Perpanjang` FOREIGN KEY (`Kode_Pajak`) REFERENCES `pajak` 
 ADD CONSTRAINT `Pengujian_Perpanjang` FOREIGN KEY (`Kode_Pengujian`) REFERENCES `pengujian` (`Kode_Pengujian`),
 ADD CONSTRAINT `Perizinan_Perpanjang` FOREIGN KEY (`Kode_Perizinan`) REFERENCES `perizinan` (`Kode_Perizinan`),
 ADD CONSTRAINT `Sertifikasi_Perpanjang` FOREIGN KEY (`Kode_Sertifikasi`) REFERENCES `sertifikasi` (`Kode_Sertifikasi`);
-
---
--- Ketidakleluasaan untuk tabel `Sertifikasi`
---
-ALTER TABLE `Sertifikasi`
-ADD CONSTRAINT `Admin_Sertifikasi` FOREIGN KEY (`Id_Admin`) REFERENCES `Admin` (`Id_Admin`);
 
 --
 -- Ketidakleluasaan untuk tabel `SMSPeringatan`
