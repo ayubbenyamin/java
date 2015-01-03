@@ -97,7 +97,7 @@ public class Utama extends javax.swing.JFrame {
                     Statement statement_perizinan = conn.createStatement();
                     Statement statement_sertifikasi = conn.createStatement();
 
-                    String sql_kirim_sms = "INSERT INTO outbox (DestinationNumber, TextDecoded) VALUES (?, ?)";
+                    String sql_kirim_sms = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) VALUES (?, ?, '')";
 
                     String sql_user = "SELECT * FROM User";
                     ResultSet result_user = statement_user.executeQuery(sql_user);
@@ -369,6 +369,7 @@ public class Utama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        setIconImage(new ImageIcon(getClass().getResource("/icons/ikon_aplikasi.png")).getImage());
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
