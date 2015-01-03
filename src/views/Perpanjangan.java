@@ -310,11 +310,17 @@ public class Perpanjangan extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Global.validatorComponent.clear();
+        Global.validatorComponent.add(jTextField1);
+        Global.validatorComponent.add(jDateChooser1);
+        if (Global.validatorComponentEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Silahkan isi semua bagian yang kosong", "Kosong", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
 
             String sql = null;
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             switch (jTextField2.getText().toLowerCase()) {
                 case "pajak":

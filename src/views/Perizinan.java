@@ -68,7 +68,19 @@ public class Perizinan extends javax.swing.JInternalFrame {
     }
 
     private boolean validateField() {
-        return false;
+        boolean error;
+        Global.validatorComponent.clear();
+        Global.validatorComponent.add(jTextField1);
+        Global.validatorComponent.add(jTextField2);
+        Global.validatorComponent.add(jTextField3);
+        Global.validatorComponent.add(jTextField4);
+        Global.validatorComponent.add(jTextField5);
+        Global.validatorComponent.add(jDateChooser1);
+
+        if (error = Global.validatorComponentEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Silahkan isi semua bagian yang kosong", "Kosong", JOptionPane.WARNING_MESSAGE);
+        }
+        return error;
     }
 
     /**
@@ -389,6 +401,9 @@ public class Perizinan extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (validateField()) {
+            return;
+        }
         Global.showProgress();
         setModelData();
         try {
@@ -426,6 +441,9 @@ public class Perizinan extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        if (validateField()) {
+            return;
+        }
         Global.showProgress();
         setModelData();
         try {

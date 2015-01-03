@@ -10,9 +10,12 @@ import java.awt.Component;
 import java.awt.Window;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRootPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -26,6 +29,7 @@ import model.Admin;
  */
 public class Global {
 
+    public static List<Component> validatorComponent = new ArrayList<>();
     private static Admin modelAdmin;
 
     public static void setModelAdmin(final Admin admin) {
@@ -75,6 +79,22 @@ public class Global {
                 }
             }
         }
+    }
+
+    public static boolean validatorComponentEmpty() {
+        boolean isNotValid = false;
+        for (Component com : validatorComponent) {
+            if (com instanceof JTextField || com instanceof JTextArea) {
+                isNotValid = "".equals(((JTextComponent) com).getText().trim());
+            }
+            if (com instanceof JDateChooser) {
+                isNotValid = "null".equals(String.valueOf(((JDateChooser) com).getDate()));
+            }
+            if (com instanceof JPasswordField) {
+                isNotValid = "".equals(String.valueOf(((JPasswordField) com).getPassword()).trim());
+            }
+        }
+        return isNotValid;
     }
 
     public Global() {
