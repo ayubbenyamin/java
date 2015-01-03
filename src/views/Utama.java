@@ -5,7 +5,6 @@
  */
 package views;
 
-import views.reports.Laporan;
 import java.awt.AWTException;
 import java.awt.Container;
 import java.awt.Image;
@@ -42,6 +41,7 @@ import static sppbe.Config.TRAY_MENU_EXIT;
 import static sppbe.Config.TRAY_MENU_SHOW;
 import static sppbe.Config.TRAY_TOOLTIP;
 import sppbe.Global;
+import views.reports.Laporan;
 
 /**
  *
@@ -57,8 +57,8 @@ public class Utama extends javax.swing.JFrame {
 
     class UserSMS {
 
-        private String no_hp;
-        private String nama_user;
+        private final String no_hp;
+        private final String nama_user;
 
         UserSMS(String nama_user, String no_hp) {
             this.no_hp = no_hp;
@@ -102,7 +102,7 @@ public class Utama extends javax.swing.JFrame {
                     String sql_user = "SELECT * FROM User";
                     ResultSet result_user = statement_user.executeQuery(sql_user);
 
-                    List<UserSMS> userSMSList = new ArrayList<UserSMS>();
+                    List<UserSMS> userSMSList = new ArrayList<>();
 
                     while (result_user.next()) {
                         UserSMS userSMS = new UserSMS(result_user.getString("Nama_User"), result_user.getString("No_Hp_User"));
