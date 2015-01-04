@@ -5,6 +5,7 @@
  */
 package views;
 
+import controllers.UtamaController;
 import java.awt.AWTException;
 import java.awt.Container;
 import java.awt.Image;
@@ -17,15 +18,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.beans.PropertyVetoException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -34,7 +26,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import sppbe.AksiKeluarSistem;
-import sppbe.Config;
 import static sppbe.Config.INTERVAL_CHECK_SMS;
 import static sppbe.Config.TRAY_MENU_ABOUT;
 import static sppbe.Config.TRAY_MENU_EXIT;
@@ -52,33 +43,15 @@ public class Utama extends javax.swing.JFrame {
     TrayIcon trayIcon = null;
     Timer mTimer = null;
     Timer mCheckTimer = null;
-    int interval = (int) (1.5 * 1000); // 1.5 seconds
+    int intervalTrayIcon = (int) (1.5 * 1000); // 1.5 seconds
     static boolean isON = true;
-
-    class UserSMS {
-
-        private final String no_hp;
-        private final String nama_user;
-
-        UserSMS(String nama_user, String no_hp) {
-            this.no_hp = no_hp;
-            this.nama_user = nama_user;
-        }
-
-        private String getNoHP() {
-            return no_hp;
-        }
-
-        private String getNamaUser() {
-            return nama_user;
-        }
-    }
 
     /**
      * Creates new form utama
      */
     public Utama() {
         initComponents();
+        final UtamaController uController = new UtamaController();
 
         mCheckTimer = new Timer();
 
@@ -87,130 +60,7 @@ public class Utama extends javax.swing.JFrame {
             @Override
             public void run() {
                 System.out.println("Interval cek sms berjalan\n");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
-                try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
-
-                    Statement statement_user = conn.createStatement();
-                    Statement statement_pajak = conn.createStatement();
-                    Statement statement_pengujian = conn.createStatement();
-                    Statement statement_perizinan = conn.createStatement();
-                    Statement statement_sertifikasi = conn.createStatement();
-
-                    String sql_kirim_sms = "INSERT INTO outbox (DestinationNumber, TextDecoded, CreatorID) VALUES (?, ?, '')";
-
-                    String sql_user = "SELECT * FROM User";
-                    ResultSet result_user = statement_user.executeQuery(sql_user);
-
-                    List<UserSMS> userSMSList = new ArrayList<>();
-
-                    while (result_user.next()) {
-                        UserSMS userSMS = new UserSMS(result_user.getString("Nama_User"), result_user.getString("No_Hp_User"));
-                        userSMSList.add(userSMS);
-                    }
-
-                    String sql_pajak = "SELECT Kode_Pajak, Tgl_Jatuh_Tempo_Pjk FROM Pajak WHERE Tgl_Jatuh_Tempo_Pjk <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH)) AND sms_terkirim='0'";
-                    ResultSet result_pajak = statement_pajak.executeQuery(sql_pajak);
-
-                    String sql_update_pajak = "UPDATE Pajak SET sms_terkirim='1' WHERE Kode_Pajak=?";
-
-                    while (result_pajak.next()) {
-                        for (UserSMS userSMS : userSMSList) {
-                            String sms = "YTH User " + userSMS.getNamaUser()
-                                    + ", pajak dengan kode " + result_pajak.getString(1) + " akan memasuki masa jatuh tempo pada tanggal "
-                                    + sdf.format(result_pajak.getDate(2)) + ", mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE";
-                            // insert ke table sms
-                            PreparedStatement statement_kirim_sms = conn.prepareStatement(sql_kirim_sms);
-                            statement_kirim_sms.setString(1, userSMS.getNoHP());
-                            statement_kirim_sms.setString(2, sms);
-                            statement_kirim_sms.executeUpdate();
-
-                            System.out.println("User kode pajak " + result_pajak.getString(1) + "\n");
-                        }
-                        // update tabel pajak
-                        PreparedStatement statement_update_pajak = conn.prepareStatement(sql_update_pajak);
-                        statement_update_pajak.setString(1, result_pajak.getString(1));
-
-                        statement_update_pajak.executeUpdate();
-                    }
-
-                    String sql_pengujian = "SELECT Kode_Pengujian, Tgl_Jatuh_Tempo_Pgjn FROM Pengujian WHERE Tgl_Jatuh_Tempo_Pgjn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH)) AND sms_terkirim='0'";
-                    ResultSet result_pengujian = statement_pengujian.executeQuery(sql_pengujian);
-
-                    String sql_update_pengujian = "UPDATE Pengujian SET sms_terkirim='1' WHERE Kode_Pengujian=?";
-
-                    while (result_pengujian.next()) {
-                        for (UserSMS userSMS : userSMSList) {
-                            String sms = "YTH User " + userSMS.getNamaUser()
-                                    + ", pengujian dengan kode " + result_pengujian.getString(1) + " akan memasuki masa jatuh tempo pada tanggal "
-                                    + sdf.format(result_pengujian.getDate(2)) + ", mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE";
-                            // insert ke table sms
-                            PreparedStatement statement_kirim_sms = conn.prepareStatement(sql_kirim_sms);
-                            statement_kirim_sms.setString(1, userSMS.getNoHP());
-                            statement_kirim_sms.setString(2, sms);
-                            statement_kirim_sms.executeUpdate();
-
-                            System.out.println("User pengujian kode" + result_pengujian.getString(1) + "\n");
-                        }
-                        // update tabel pengujian
-                        PreparedStatement statement_update_pengujian = conn.prepareStatement(sql_update_pengujian);
-                        statement_update_pengujian.setString(1, result_pengujian.getString(1));
-
-                        statement_update_pengujian.executeUpdate();
-                    }
-
-                    String sql_perizinan = "SELECT Kode_Perizinan, Tgl_Jatuh_Tempo_Przn FROM Perizinan WHERE Tgl_Jatuh_Tempo_Przn <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH)) AND sms_terkirim='0'";
-                    ResultSet result_perizinan = statement_perizinan.executeQuery(sql_perizinan);
-
-                    String sql_update_perizinan = "UPDATE Perizinan SET sms_terkirim='1' WHERE Kode_Perizinan=?";
-
-                    while (result_perizinan.next()) {
-                        for (UserSMS userSMS : userSMSList) {
-                            String sms = "YTH User " + userSMS.getNamaUser()
-                                    + ", perizinan dengan kode " + result_perizinan.getString(1) + " akan memasuki masa jatuh tempo pada tanggal "
-                                    + sdf.format(result_perizinan.getDate(2)) + ", mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE";
-                            // insert ke table sms
-                            PreparedStatement statement_kirim_sms = conn.prepareStatement(sql_kirim_sms);
-                            statement_kirim_sms.setString(1, userSMS.getNoHP());
-                            statement_kirim_sms.setString(2, sms);
-                            statement_kirim_sms.executeUpdate();
-
-                            System.out.println("User perizinan kode " + result_perizinan.getString(1) + "\n");
-                        }
-                        // update tabel perizinan
-                        PreparedStatement statement_update_perizinan = conn.prepareStatement(sql_update_perizinan);
-                        statement_update_perizinan.setString(1, result_perizinan.getString(1));
-
-                        statement_update_perizinan.executeUpdate();
-                    }
-
-                    String sql_sertifikasi = "SELECT Kode_Sertifikasi, Tgl_Jatuh_Tempo_Srks FROM Sertifikasi WHERE Tgl_Jatuh_Tempo_Srks <= LAST_DAY(DATE_ADD(NOW(), INTERVAL 1 MONTH)) AND sms_terkirim='0'";
-                    ResultSet result_sertifikasi = statement_sertifikasi.executeQuery(sql_sertifikasi);
-
-                    String sql_update_sertifikasi = "UPDATE Sertifikasi SET sms_terkirim='1' WHERE Kode_Sertifikasi=?";
-
-                    while (result_sertifikasi.next()) {
-                        for (UserSMS userSMS : userSMSList) {
-                            String sms = "YTH User " + userSMS.getNamaUser()
-                                    + ", sertifikasi dengan kode " + result_sertifikasi.getString(1) + " akan memasuki masa jatuh tempo pada tanggal "
-                                    + sdf.format(result_sertifikasi.getDate(2)) + ", mohon mengambil tindakan perpanjangan.\n\nTerimakasih\nSistem SPPBE";
-                            // insert ke table sms
-                            PreparedStatement statement_kirim_sms = conn.prepareStatement(sql_kirim_sms);
-                            statement_kirim_sms.setString(1, userSMS.getNoHP());
-                            statement_kirim_sms.setString(2, sms);
-                            statement_kirim_sms.executeUpdate();
-
-                            System.out.println("User sertifikasi kode " + result_sertifikasi.getString(1) + "\n");
-                        }
-                        // update tabel sertifikasi
-                        PreparedStatement statement_update_sertifikasi = conn.prepareStatement(sql_update_sertifikasi);
-                        statement_update_sertifikasi.setString(1, result_sertifikasi.getString(1));
-
-                        statement_update_sertifikasi.executeUpdate();
-                    }
-
-                } catch (SQLException ex) {
-                }
+                uController.kirimPesan();
             }
         }, 0, INTERVAL_CHECK_SMS);
 
@@ -337,7 +187,7 @@ public class Utama extends javax.swing.JFrame {
                 }
                 mTimer = new Timer();
                 // schedule task
-                mTimer.scheduleAtFixedRate(new ChangeTrayIcon(trayIcon), 0, interval);
+                mTimer.scheduleAtFixedRate(new ChangeTrayIcon(trayIcon), 0, intervalTrayIcon);
             } catch (AWTException ex) {
                 System.err.println(ex);
             }
