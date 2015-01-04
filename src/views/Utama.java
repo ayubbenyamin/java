@@ -151,9 +151,11 @@ public class Utama extends javax.swing.JFrame {
 
             ActionListener trayListener = new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    trayIcon.displayMessage("Action Event",
-                            "An Action Event Has Been Peformed!",
-                            TrayIcon.MessageType.INFO);
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                    }
+                    tray.remove(trayIcon);
+                    setVisible(true);
                 }
             };
             // create a popup menu
