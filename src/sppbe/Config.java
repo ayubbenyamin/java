@@ -33,5 +33,5 @@ public final class Config {
     // 1 menit = 1 * 60 * 1000
     // 1 jam = 1 * 60 * 60 * 1000
     // dst
-    public static final long INTERVAL_CHECK_SMS = 15 * 1000;
+    public static final long INTERVAL_CHECK_SMS = 1 * 60 * 1000;
 }
