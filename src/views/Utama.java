@@ -434,18 +434,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(admin1)) {
             jDesktopPane1.add(admin1);
             admin1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) admin1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) admin1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            admin1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                admin1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu9MouseClicked
 
@@ -455,18 +454,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(user1)) {
             jDesktopPane1.add(user1);
             user1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) user1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) user1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            user1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                user1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu1MouseClicked
 
@@ -476,18 +474,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(pajak1)) {
             jDesktopPane1.add(pajak1);
             pajak1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) pajak1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) pajak1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            pajak1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                pajak1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu11MouseClicked
 
@@ -497,18 +494,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(perizinan1)) {
             jDesktopPane1.add(perizinan1);
             perizinan1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) perizinan1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) perizinan1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            perizinan1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                perizinan1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu12MouseClicked
 
@@ -518,18 +514,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(pengujian1)) {
             jDesktopPane1.add(pengujian1);
             pengujian1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) pengujian1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) pengujian1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            pengujian1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                pengujian1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu4MouseClicked
 
@@ -539,18 +534,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(sertifikasi1)) {
             jDesktopPane1.add(sertifikasi1);
             sertifikasi1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) sertifikasi1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) sertifikasi1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            sertifikasi1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                sertifikasi1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu5MouseClicked
 
@@ -560,18 +554,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(perpanjangan1)) {
             jDesktopPane1.add(perpanjangan1);
             perpanjangan1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) perpanjangan1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) perpanjangan1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            perpanjangan1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                perpanjangan1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenu6MouseClicked
 
@@ -584,18 +577,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(laporan)) {
             jDesktopPane1.add(laporan);
             laporan.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) laporan.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) laporan.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            laporan.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                laporan.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenuItem2MousePressed
 
@@ -604,18 +596,17 @@ public class Utama extends javax.swing.JFrame {
         if (!formHasCreated(smsperingatan1)) {
             jDesktopPane1.add(smsperingatan1);
             smsperingatan1.show();
-        }
 
-        BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
-        Container north = (Container) x.getNorthPane();
-        north.remove(0);
-        north.validate();
-        north.repaint();
+            BasicInternalFrameUI x = (BasicInternalFrameUI) smsperingatan1.getUI();
+            Container north = (Container) x.getNorthPane();
+            north.remove(0);
+            north.validate();
+            north.repaint();
 
-        try {
-            smsperingatan1.setMaximum(true);
-        } catch (PropertyVetoException e) {
-            //maximize otomatis
+            try {
+                smsperingatan1.setMaximum(true);
+            } catch (PropertyVetoException e) {
+            }
         }
     }//GEN-LAST:event_jMenuItem1MousePressed
 
