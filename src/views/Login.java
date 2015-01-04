@@ -111,7 +111,6 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setText("PASSWORD");
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField1.setToolTipText("");
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField1KeyPressed(evt);
