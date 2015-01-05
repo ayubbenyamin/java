@@ -10,6 +10,10 @@ import java.awt.Component;
 import java.awt.Window;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JDialog;
@@ -95,6 +99,44 @@ public class Global {
             }
         }
         return isNotValid;
+    }
+
+    // Contoh penggunaan untuk mendapatkan kode sertifikasi:
+    // String kode = Global.getCode("SR");
+    public static String getCode(String prefix) {
+        try (Connection conn = DriverManager.getConnection(Config.DB_CONNECTION, Config.DB_USER, Config.DB_PASSWORD)) {
+
+            String tableName = "pajak";
+            String pk = "Kode_Pajak";
+            switch (prefix.toLowerCase()) {
+                case "sr":
+                    tableName = "sertifikasi";
+                    pk = "Kode_Sertifikasi";
+                    break;
+                case "pg":
+                    tableName = "pengujian";
+                    pk = "Kode_Pengujian";
+                    break;
+                case "pr":
+                    tableName = "peringatan";
+                    pk = "Kode_Perizinan";
+                    break;
+            }
+
+            String sql = "SELECT " + pk + " FROM " + tableName + " ORDER BY " + pk + " DESC LIMIT 1";
+
+            ResultSet result = conn.createStatement().executeQuery(sql);
+
+            int kode_berikut = 1;
+
+            while (result.next()) {
+                kode_berikut = Integer.valueOf(result.getString(1).substring(2)) + 1;
+            }
+            return prefix.toUpperCase() + String.format("%04d", kode_berikut);
+        } catch (SQLException ex) {
+        }
+
+        return "error";
     }
 
     public Global() {
