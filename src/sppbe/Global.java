@@ -130,7 +130,8 @@ public class Global {
             int kode_berikut = 1;
 
             while (result.next()) {
-                kode_berikut = Integer.valueOf(result.getString(1).substring(2)) + 1;
+                String kode = result.getString(1).substring(2);
+                kode_berikut = !"".equals(kode) ? Integer.valueOf(result.getString(1).substring(2)) + 1 : 1;
             }
             return prefix.toUpperCase() + String.format("%04d", kode_berikut);
         } catch (SQLException ex) {
