@@ -446,6 +446,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        admin1.setLoad();
     }//GEN-LAST:event_jMenu9MouseClicked
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -466,6 +467,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        user1.setLoad();
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
@@ -486,6 +488,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        pajak1.setLoad();
     }//GEN-LAST:event_jMenu11MouseClicked
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
@@ -506,6 +509,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        perizinan1.setLoad();
     }//GEN-LAST:event_jMenu12MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
@@ -526,6 +530,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        pengujian1.setLoad();
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
@@ -546,6 +551,7 @@ public class Utama extends javax.swing.JFrame {
             } catch (PropertyVetoException e) {
             }
         }
+        sertifikasi1.setLoad();
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked

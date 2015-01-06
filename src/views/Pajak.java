@@ -34,6 +34,20 @@ public class Pajak extends javax.swing.JInternalFrame {
         loadData();
     }
 
+    public void setTombol(boolean simpan, boolean update, boolean hapus,
+            boolean batal, boolean tambah, boolean Edit) {
+        jButton2.setEnabled(simpan); // tbl simpan
+        jButton5.setEnabled(update); // update
+        jButton3.setEnabled(hapus); // hapus
+        jButton6.setEnabled(batal); // batal
+        jButton1.setEnabled(tambah); // tambah
+        jButton4.setEnabled(Edit); // Edit
+    }
+
+    public void setLoad() {
+        setTombol(false, false, false, false, true, false);
+    }
+
     private void loadData() {
         Object row[] = {"Kode Pajak", "Nomor NPWP", "Jenis Pajak", "Pokok Pajak", "Sumber Pajak", "Tanggal Jatuh Tempo"};
         DefaultTableModel tableModel = new DefaultTableModel(null, row) {
@@ -303,6 +317,11 @@ public class Pajak extends javax.swing.JInternalFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/x.png"))); // NOI18N
         jButton6.setText("Batal");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -349,7 +368,7 @@ public class Pajak extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jLabel14))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -476,11 +495,13 @@ public class Pajak extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Kode Pajak " + model.getKodePajak() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Global.setEnabledTextField(jPanel1);
         Global.setClearTextField(jPanel1);
+        setTombol(true, true, false, true, false, false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -500,6 +521,9 @@ public class Pajak extends javax.swing.JInternalFrame {
                 }
             }
         });
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -515,6 +539,10 @@ public class Pajak extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -537,6 +565,7 @@ public class Pajak extends javax.swing.JInternalFrame {
             Global.setEnabledTextField(jPanel1, false);
             Global.setClearTextField(jPanel1);
         }
+        setTombol(false, true, true, true, false, true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -579,8 +608,16 @@ public class Pajak extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

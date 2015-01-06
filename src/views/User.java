@@ -31,6 +31,20 @@ public class User extends javax.swing.JInternalFrame {
         loadData();
     }
 
+    public void setTombol(boolean simpan, boolean update, boolean hapus,
+            boolean batal, boolean tambah, boolean Edit) {
+        jButton2.setEnabled(simpan); // tbl simpan
+        jButton5.setEnabled(update); // update
+        jButton3.setEnabled(hapus); // hapus
+        jButton6.setEnabled(batal); // batal
+        jButton1.setEnabled(tambah); // tambah
+        jButton4.setEnabled(Edit); // Edit
+    }
+
+    public void setLoad() {
+        setTombol(false, false, false, false, true, false);
+    }
+
     private void loadData() {
         Object row[] = {"Id User", "Nama User", "No Handphone", "Alamat User"};
         DefaultTableModel tableModel = new DefaultTableModel(null, row) {
@@ -247,6 +261,11 @@ public class User extends javax.swing.JInternalFrame {
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/x.png"))); // NOI18N
         jButton6.setText("Batal");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -281,7 +300,7 @@ public class User extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(176, 176, 176)
+                                .addGap(184, 184, 184)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -326,7 +345,7 @@ public class User extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -349,7 +368,7 @@ public class User extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel30))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,11 +404,16 @@ public class User extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "User ID " + model.getIdUser() + " sudah ada di database.", "Pesan", JOptionPane.WARNING_MESSAGE);
             }
         }
+
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Global.setEnabledTextField(jPanel1);
         Global.setClearTextField(jPanel1);
+        setTombol(true, true, false, true, false, false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -412,6 +436,9 @@ public class User extends javax.swing.JInternalFrame {
                 }
             }
         });
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -426,6 +453,10 @@ public class User extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "User sudah berhasil diedit.", "Pesan", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
         }
+
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -483,8 +514,16 @@ public class User extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextArea1KeyTyped
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        Global.setEnabledTextField(jPanel1, false);
+        Global.setClearTextField(jPanel1);
+        setTombol(false, false, false, false, true, false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
