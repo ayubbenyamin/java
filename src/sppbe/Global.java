@@ -139,6 +139,20 @@ public class Global {
         return "error";
     }
 
+    public static void setButtonVisible(final List<Component> btn, final boolean visible) {
+        for (Component com : btn) {
+            com.setVisible(visible);
+        }
+    }
+
+    public static void setButtonVisible(List<Component> btn, final boolean[] visible) {
+        int i = 0;
+        for (Component com : btn) {
+            com.setVisible(visible[i]);
+            i++;
+        }
+    }
+
     public Global() {
     }
 
